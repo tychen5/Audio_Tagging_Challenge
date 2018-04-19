@@ -3,3 +3,4 @@
 ***
 * 太大的檔案放雲端: https://drive.google.com/drive/folders/1LdcR5EPBbYdcC8ltlp83B-deS78xOYOL?usp=sharing
 * 僅保留master branch，各自所做的事情放自己的資料夾~
+* 整理好的code與report放final繳交資料夾
