@@ -4,7 +4,7 @@
 * 太大的檔案放雲端: https://drive.google.com/drive/folders/1LdcR5EPBbYdcC8ltlp83B-deS78xOYOL?usp=sharing
 * 僅保留master branch，各自所做的事情放自己的資料夾~
 * 整理好的code與report放final繳交資料夾
-***
+
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
 - tensorflow 1.7
