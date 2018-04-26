@@ -29,7 +29,7 @@
 * MFCC/FBANK
 * data augmentation
 * CNN1D/CNN2D/LSTM/GRU/ConvLSTM
-* random foreset clf/ XGB clf/ catboost clf 
+* random foreset clf/ XGB clf(gpu)/ catboost clf (gpu) => https://www.kaggle.com/mainya/stacking-xgboost-lightgbm-catboost 
 * train on manually labeled or two times, and train on other label
 * weakly-supervised learning / unsupervised clustering (kick outlier)
 * PCA/MF/SVD =>轉折點
