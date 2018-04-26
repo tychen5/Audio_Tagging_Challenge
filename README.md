@@ -7,13 +7,32 @@
 
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
-- tensorflow-gpu 1.7
-- keras 2.1.5
 - scikit-learn 0.19.1
 - scipy 1.0.1
+- librosa 0.6.0
+
+- tensorflow-gpu 1.7
+- keras 2.1.5
 - xgboost 0.71
 - lightgbm 2.1
+- catboost 0.8.1
 
 ## Voice ##
+* 最少樣本的類別有94個 (一種)
+* 最多樣本的類別有300個 (三分之一種類)
 * 每秒有44100個點
 * 一個點有65536種可能
+* audio length在不同類別會不一樣(可當成一種feature)
+* 需要把outlier長度的audio踢掉(1.5*iqr / 95%)
+* data normalized到0~1之間 (-min)/(max-min)
+* 10-fold CV (sklearn.cross_validation.StratifiedKFold)=>ensemble/bagging
+* MFCC/FBANK
+* data augmentation
+* CNN1D/CNN2D/LSTM/GRU/ConvLSTM
+* random foreset clf/ XGB clf/ catboost clf 
+* train on manually labeled or two times, and train on other label
+* weakly-supervised learning / unsupervised clustering (kick outlier)
+* PCA/MF/SVD =>轉折點
+* self-training / stacking
+* sklearn.preprocessing import StandardScaler  / MinMaxScaler / normalize (including test_X & test_X)
+* def extract_features(files, path): in kernel notebook
