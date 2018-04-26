@@ -10,5 +10,6 @@
 - tensorflow-gpu 1.7
 - keras 2.1.5
 - scikit-learn 0.19.1
+- scipy 1.0.1
 - xgboost 0.71
 - lightgbm 2.1
