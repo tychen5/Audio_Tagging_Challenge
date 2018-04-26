@@ -7,7 +7,7 @@
 
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
-- tensorflow 1.7
+- tensorflow-gpu 1.7
 - keras 2.1.5
 - scikit-learn 0.19.1
 - xgboost 0.71
