@@ -34,5 +34,5 @@
 * weakly-supervised learning / unsupervised clustering (kick outlier)
 * PCA/MF/SVD =>轉折點
 * self-training / stacking
-* sklearn.preprocessing import StandardScaler  / MinMaxScaler / normalize (including test_X & test_X)
+* sklearn.preprocessing import StandardScaler  / MinMaxScaler / normalize (including train_X & test_X)
 * def extract_features(files, path): in kernel notebook
