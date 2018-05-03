@@ -11,7 +11,7 @@
 - scipy 1.0.1
 - librosa 0.6.0
 
-- tensorflow-gpu 1.7
+- tensorflow-gpu 1.8
 - keras 2.1.6
 - xgboost 0.71
 - lightgbm 2.1
