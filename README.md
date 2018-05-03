@@ -5,6 +5,11 @@
 * 僅保留master branch，各自所做的事情放自己的資料夾~
 * 整理好的code與report放final繳交資料夾
 
+## Anniuncement ##
+- 大家辛苦了~嘎U
+- 5/10 中午以前上傳好5-fold CV predict結果的csv (MFCC)，並填好表單~
+- 5/10 晚上1900 教研館319討論下一步與phase2~
+
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
 - scikit-learn 0.19.1
