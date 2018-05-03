@@ -9,7 +9,8 @@
 - 大家辛苦了~嘎U，記得保留model跟上傳code
 - 使用MFCC於google drive phase1中
 - 5/10 中午以前上傳好5-fold CV predict結果的csv到google drive，並填好個檔案的valid_acc表單~
-  - csv格式為fname,prob
+  
+  - csv格式為fname,prob
   
   - prob為softmax predict出來結果的1D numpy array，shape為(41,)。第一個數字代表map.pkl的數字1類的機率，第二個數字代表該fname是屬於2類的機率，第三個數字代表該fname是3的機率...etc
   
