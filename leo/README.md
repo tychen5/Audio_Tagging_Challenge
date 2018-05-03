@@ -14,6 +14,7 @@ hello there~
 - Integration、opening
 - feature extracting
 - Bagging
+- first try should do the mfcc feature first(?)
 
 ## Feature Extracting ##
 - Using MFCC extract spectrogram of 40*
