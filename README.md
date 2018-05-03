@@ -12,9 +12,12 @@
   
   - csv header格式為fname,prob。(csv的第一個row麻煩再寫入此header)
   
-  - prob為softmax predict出來結果的1D numpy array，shape為(41,)。依照map.pkl的數字順序，第一個數字代表該fname是屬於map.pkl第0類的機率(也就是Hi-hat)，第二個數字代表該fname是屬於1類的機率(Saxophone)，第三個數字代表該fname是2的機率...etc
   
+  - prob為softmax predict出來結果的1D numpy array，shape為(41,)。依照map.pkl的數字順序，第一個數字代表該fname是屬於map.pkl第0類的機率(也就是Hi-hat)，第二個數字代表該fname是屬於1類的機率(Saxophone)，第三個數字代表該fname是2的機率...etc
+  
+  
   - 存成csv的時候別把index值存進去，只要fname,prob就好了，THX
+  
 - 5/10 晚上1900 教研館319討論下一步與phase2~
 
 ## 版本請注意 ##
