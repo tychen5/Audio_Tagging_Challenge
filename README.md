@@ -5,7 +5,7 @@
 * 僅保留master branch，各自所做的事情放自己的資料夾~
 * 整理好的code與report放final繳交資料夾
 
-## Anniuncement ##
+## Announcement ##
 - 大家辛苦了~嘎U
 - 5/10 中午以前上傳好5-fold CV predict結果的csv (MFCC)，並填好表單~
 - 5/10 晚上1900 教研館319討論下一步與phase2~
