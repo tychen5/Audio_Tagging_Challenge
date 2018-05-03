@@ -12,7 +12,7 @@
 - librosa 0.6.0
 
 - tensorflow-gpu 1.7
-- keras 2.1.5
+- keras 2.1.6
 - xgboost 0.71
 - lightgbm 2.1
 - catboost 0.8.1
