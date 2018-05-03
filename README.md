@@ -10,7 +10,8 @@
 - 使用MFCC於google drive phase1中
 - 5/10 中午以前上傳好5-fold CV predict結果的csv到google drive，並填好個檔案的valid_acc表單~
   
-  - csv header格式為fname,prob。(csv的第一個row麻煩再寫入此header)
+  
+  - csv header格式為fname,prob。(csv的第一個row麻煩再寫入此header)
   
   
   - prob為softmax predict出來結果的1D numpy array，shape為(41,)。依照map.pkl的數字順序，第一個數字代表該fname是屬於map.pkl第0類的機率(也就是Hi-hat)，第二個數字代表該fname是屬於1類的機率(Saxophone)，第三個數字代表該fname是2的機率...etc
