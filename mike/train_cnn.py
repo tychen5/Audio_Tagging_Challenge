@@ -25,6 +25,14 @@ from keras import backend as K
 
 from sklearn.model_selection import KFold 
 
+# gpu usage limit
+import tensorflow as tf
+
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
+sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+
+# 設定 Keras 使用的 TensorFlow Session
+tf.keras.backend.set_session(sess)
 
 # category map dict =====================================================
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
@@ -92,7 +100,7 @@ def get_2d_conv_model(data):
     out = Dense(nclass, activation=softmax)(x)
 
     model = models.Model(inputs=inp, outputs=out)
-    opt = optimizers.Adam(0.001)
+    opt = optimizers.Adam(0.0005)
     model.compile(optimizer=opt, loss=losses.categorical_crossentropy, metrics=['acc'])
     return model
 
@@ -126,7 +134,7 @@ for train_index, test_index in kf.split(X):
     checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
 
     # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
-    early = EarlyStopping(monitor="val_acc", mode="max", patience=10)
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=25)
 
     tb = TensorBoard(log_dir='./logs/' + PREDICTION_FOLDER + '/fold_%i'%i, write_graph=True)
 
@@ -138,7 +146,7 @@ for train_index, test_index in kf.split(X):
     model = get_2d_conv_model(X_train[0])
 
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list, 
-                        batch_size=48, epochs=1000)
+                        batch_size=48, epochs=10000)
 
     # model.load_weights('model/best_%d.h5'%i)
 
