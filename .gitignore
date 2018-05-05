@@ -108,5 +108,4 @@ ENV/
 .mypy_cache/
 
 # ignore data folder 
-data/ 
-
+data/
