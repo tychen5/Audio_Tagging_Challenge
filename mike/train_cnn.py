@@ -25,10 +25,10 @@ from keras import backend as K
 
 from sklearn.model_selection import KFold 
 
-# gpu usage limit
+# gpu usage limit ==============================================================
 import tensorflow as tf
 
-gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.9)
 sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
 
 # 設定 Keras 使用的 TensorFlow Session
@@ -134,7 +134,7 @@ for train_index, test_index in kf.split(X):
     checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
 
     # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
-    early = EarlyStopping(monitor="val_acc", mode="max", patience=25)
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=50)
 
     tb = TensorBoard(log_dir='./logs/' + PREDICTION_FOLDER + '/fold_%i'%i, write_graph=True)
 
