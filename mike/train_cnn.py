@@ -122,8 +122,11 @@ for train_index, test_index in kf.split(X):
     X_train, X_test = X[train_index], X[test_index]
     Y_train, Y_test = Y[train_index], Y[test_index]
 
-    checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_loss', verbose=1, save_best_only=True)
-    early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
+    # checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_loss', verbose=1, save_best_only=True)
+    checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
+
+    # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=10)
 
     tb = TensorBoard(log_dir='./logs/' + PREDICTION_FOLDER + '/fold_%i'%i, write_graph=True)
 
