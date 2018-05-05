@@ -109,3 +109,4 @@ ENV/
 
 # ignore data folder 
 data/
+model/

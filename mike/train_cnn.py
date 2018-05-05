@@ -123,7 +123,8 @@ for train_index, test_index in kf.split(X):
     Y_train, Y_test = Y[train_index], Y[test_index]
 
     checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_loss', verbose=1, save_best_only=True)
-    early = EarlyStopping(monitor="val_loss", mode="min", patience=5)
+    early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
+
     tb = TensorBoard(log_dir='./logs/' + PREDICTION_FOLDER + '/fold_%i'%i, write_graph=True)
 
     callbacks_list = [checkpoint, early, tb]
@@ -134,7 +135,7 @@ for train_index, test_index in kf.split(X):
     model = get_2d_conv_model(X_train[0])
 
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list, 
-                        batch_size=32, epochs=3)
+                        batch_size=48, epochs=1000)
 
     # model.load_weights('model/best_%d.h5'%i)
 
