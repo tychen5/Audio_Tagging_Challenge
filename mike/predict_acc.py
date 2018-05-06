@@ -89,9 +89,9 @@ for i in range(1,7):
 
     # write to csv 
     result = np.load('predict_test/mike_predict_{}.npy'.format(i)) 
-    df = pd.DataFrame(result , columns = head)
+    df = pd.DataFrame(result)
     df.insert(0, 'ID', Y_index)
-    df.to_csv('predict_csv/mike_predict_{}.csv'.format(i), index=False)
+    df.to_csv('predict_csv/mike_predict_{}.csv'.format(i), index=False,header=False)
 
     # calculate accuracy
     pred = np.argmax(result, axis=-1)
@@ -102,6 +102,6 @@ for i in range(1,7):
 
 pred = np.argmax(score, axis=-1)
 acc = accuracy_score(Y_ans, pred)
-print('\nfinal  accuracy : {}'.format(acc))
+print('final  accuracy : {}'.format(acc))
 
 
