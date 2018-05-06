@@ -135,7 +135,7 @@ for train_index, test_index in kf.split(X):
     checkpoint = ModelCheckpoint('model_full/best_%d.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
 
     # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
-    early = EarlyStopping(monitor="val_acc", mode="max", patience=10)
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=50)
 
 
     callbacks_list = [checkpoint, early]
