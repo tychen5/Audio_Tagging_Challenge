@@ -21,6 +21,9 @@ from keras.layers import (Convolution2D, GlobalAveragePooling2D, BatchNormalizat
 from keras import backend as K                      
 
 
+# calculate accuracy
+from sklearn.metrics import accuracy_score
+
 
 def write2CSV(pred, path):
     with open(path, 'w') as f:
@@ -39,6 +42,7 @@ Y_test['trans'] = Y_test['label'].map(map_dict)
 Y_test['onehot'] = Y_test['trans'].apply(lambda x: to_categorical(x,num_classes=41))
 
 Y_index = Y_test.iloc[:, 0].values
+Y_ans = Y_test['trans'].tolist()
 
 Y = Y_test['onehot'].tolist()
 
@@ -73,7 +77,7 @@ if not os.path.exists(csv_folder):
 
 for i in range(1,7):
     print('round : {}'.format(i))
-    
+
     # predict
     '''
     model = load_model('model/mike_six_fold_{}.h5'.format(i)) 
@@ -86,3 +90,8 @@ for i in range(1,7):
     df = pd.DataFrame(result , columns = head)
     df.insert(0, 'ID', Y_index)
     df.to_csv('predict_csv/mike_predict_{}.csv'.format(i), index=False)
+
+    # calculate accuracy
+    pred = np.argmax(result, axis=-1)
+    acc = accuracy_score(Y_ans, pred)
+    print('fold {} accuracy : {}'.format(i ,acc))
