@@ -111,3 +111,5 @@ ENV/
 data/
 model/
 mike/model_full
+mike/predict_test
+mike/predict_csv

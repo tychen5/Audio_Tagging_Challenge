@@ -38,7 +38,6 @@ tf.keras.backend.set_session(sess)
 # category map dict =====================================================
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
 
-
 X = np.load('data/train/train3_X.npy')
 Y_train = pd.read_csv('data/train/train3_Y.csv')
 
