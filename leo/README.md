@@ -17,7 +17,7 @@ hello there~
 - first try should do the mfcc feature first(?)
 
 ## Feature Extracting ##
-- Using MFCC extract spectrogram of 40*
+- Using MFCC extract spectrogram of 40*345
 - Using FBank extract spectrogram of 128*1034
 
 ## Bagging ##

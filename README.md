@@ -8,7 +8,7 @@
 ## Announcement ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
 - 使用MFCC於google drive phase1中
-- 5/10 中午以前上傳好5-fold CV predict結果的csv到google drive，並填好個檔案的valid_acc表單~
+- 5/10 中午以前上傳好6-fold CV predict結果的csv到google drive，並填好個檔案的predict_acc(test_Y=>10%training data)表單~
   
   
   - csv header格式為fname,prob。(csv的第一個row麻煩再寫入此header)
