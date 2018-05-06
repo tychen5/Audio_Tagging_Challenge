@@ -25,6 +25,16 @@ from keras import backend as K
 
 from sklearn.model_selection import KFold 
 
+# gpu usage limit ==============================================================
+'''
+import tensorflow as tf
+
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.9)
+sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+
+# 設定 Keras 使用的 TensorFlow Session
+tf.keras.backend.set_session(sess)
+'''
 
 # category map dict =====================================================
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
