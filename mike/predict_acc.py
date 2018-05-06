@@ -75,6 +75,8 @@ csv_folder = 'predict_csv'
 if not os.path.exists(csv_folder):
     os.mkdir(csv_folder)
 
+score = 0.0
+
 for i in range(1,7):
     print('round : {}'.format(i))
 
@@ -95,3 +97,11 @@ for i in range(1,7):
     pred = np.argmax(result, axis=-1)
     acc = accuracy_score(Y_ans, pred)
     print('fold {} accuracy : {}'.format(i ,acc))
+
+    score += result
+
+pred = np.argmax(score, axis=-1)
+acc = accuracy_score(Y_ans, pred)
+print('\nfinal  accuracy : {}'.format(acc))
+
+
