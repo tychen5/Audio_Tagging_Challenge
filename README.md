@@ -19,6 +19,8 @@
   
   - 存成csv的時候別把index值存進去，只要fname,prob就好了，THX
   
+  - predict順序請依照test_Y (test_X)輸出成csv
+
 - 5/10 晚上1900 教研館319討論遇到的問題、IDEA、創意、phase2與下一步~
 
 ## 版本請注意 ##
