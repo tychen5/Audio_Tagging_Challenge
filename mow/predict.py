@@ -1,3 +1,9 @@
+'''
+###################################
+Modified from Mike's predict_acc.py
+###################################
+'''
+
 import os
 import sys
 import random
@@ -20,7 +26,6 @@ print(Y_dict.shape)
 print(Y_dict)
 
 Y_fname = Y_test['fname'].tolist()
-print(Y_fname)
 
 Y_all = []
 for i in Y_dict:
