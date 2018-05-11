@@ -29,7 +29,7 @@ wheels/
 **/.ipynb_checkpoints/*
 **/logs/*
 leo/data/*
-leo/model/*.h5
+leo/model/*
 leo/models/*.h5
 leo/feature/*
 # PyInstaller
@@ -118,3 +118,8 @@ mike/*.csv
 mike/model_new
 mike/predict_test_csv
 mike/predict_train_csv
+=======
+
+# ignore useless cache
+.*.un~
+

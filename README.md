@@ -7,8 +7,11 @@
 
 ## Announcement ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
-- 使用MFCC於google drive phase1中
-- 5/10 中午以前上傳好6-fold CV predict結果的csv到google drive，並填好個檔案的predict_acc(test_Y=>10%training data)表單~
+- 使用MFCC於google drive feature_all/mfcc中的train_X來訓練model (原本phase1的hyper parameter不要動，直接用train_X shuffle切6-fold來重train六個model)
+- 全部label放在feature_all資料夾中
+- train完以後一個model要predict兩次，所以一個人總共12次 (要predict train_X，跟predict test_X)
+- 選val_loss最低的兩個model predict出來的test_X；只選softmax結果最高的類別(僅predict一個label)，丟上去kaggle，於google drive表單填上public score
+- 5/14 1700以前上傳好6-fold CV predict結果的csv(12個檔案)到google drive: feature_all/mfcc/phase2/
   
   
   - csv header格式為fname,prob。(csv的第一個row麻煩再寫入此header)
@@ -17,11 +20,14 @@
   - prob為softmax predict出來結果的1D numpy array，shape為(41,)。依照map.pkl的數字順序，第一個數字代表該fname是屬於map.pkl第0類的機率(也就是Hi-hat)，第二個數字代表該fname是屬於1類的機率(Saxophone)，第三個數字代表該fname是2的機率...etc
   
   
-  - 存成csv的時候別把index值存進去，只要fname,prob就好了，THX
+  
+  - 存成csv的時候別把row的index值存進去，只要fname,prob就好了，THX
   
-  - predict順序請依照test_Y (test_X)輸出成csv
+  
+  - predict順序請依照train_X及test_X輸出成csv
+  
 
-- 5/10 晚上1900 教研館319討論遇到的問題、IDEA、創意、phase2與下一步~
+- 5/17 晚上1900 教研館319討論遇到的問題、IDEA、創意、新的架構、新的方法改良與strong baseline~
 
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
