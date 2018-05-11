@@ -20,10 +20,11 @@
   - prob為softmax predict出來結果的1D numpy array，shape為(41,)。依照map.pkl的數字順序，第一個數字代表該fname是屬於map.pkl第0類的機率(也就是Hi-hat)，第二個數字代表該fname是屬於1類的機率(Saxophone)，第三個數字代表該fname是2的機率...etc
   
   
-  - 存成csv的時候別把row的index值存進去，只要fname,prob就好了，THX
+  
+  - 存成csv的時候別把row的index值存進去，只要fname,prob就好了，THX
   
   
-  - predict順序請依照train_X及test_X輸出成csv
+  - predict順序請依照train_X及test_X輸出成csv
   
 
 - 5/17 晚上1900 教研館319討論遇到的問題、IDEA、創意、新的架構、新的方法改良與strong baseline~
