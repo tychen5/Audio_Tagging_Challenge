@@ -14,7 +14,8 @@ hello there~
 - Integration、opening
 - feature extracting
 - Bagging
-- first try should do the mfcc feature first(?)
+- first try should do the mfcc feature first
+- simple baseline ensemble
 
 ## Feature Extracting ##
 - Using MFCC extract spectrogram of 40*345
@@ -23,12 +24,14 @@ hello there~
 ## Bagging ##
 To lower variance error
 - In phase 1 split to 30% * 3 for training and validate, 10% for testing
-- In phase 2 
+- In phase 2 do the 6-fold
 
 ## Boosting ##
 To lower bias error
 - In phase 1 ensemble voting for stage 2
+- with three kind of CNN model
 
 ## Stacking ##
 - In phase 1 use the prediction of phase 1's testing output to tune stage 2
-- In phase 2 
+- In phase 2 using stage1's prediction of train_X to train XGB voting clf, and use stage1's pr
+ediction of test_X to use XGB voting clf
