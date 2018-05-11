@@ -115,3 +115,6 @@ mike/predict_test
 mike/predict_csv
 mike/*.npy
 mike/*.csv
+mike/model_new
+mike/predict_test_csv
+mike/predict_train_csv
