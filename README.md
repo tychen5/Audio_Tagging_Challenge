@@ -8,7 +8,7 @@
 ## Announcement Phase1##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
-- 將訓練好的model之該valid fold data ACC填至表單(https://docs.google.com/spreadsheets/d/1vTM0qrHe3V_AaR0PKjnblsMA6EKb73mSNiEIjgwyy70/edit#gid=0)，希望此次大家各自的10個model的ACC至少可以有0.65~0.7，可能要多嘗試一些參數來tune
+- 將訓練好的model之該valid fold data ACC填至表單 ( https://docs.google.com/spreadsheets/d/1vTM0qrHe3V_AaR0PKjnblsMA6EKb73mSNiEIjgwyy70/edit#gid=0 ) ，希望此次大家各自的10個model的ACC至少可以有0.65~0.7，可能要多嘗試一些參數來tune
 - jerry: RAW + LSTM/GRU model
 - mow: MFCC + CNN2D model
 - mike: RAW + CNN1D model
@@ -17,17 +17,12 @@
 - 全部的label放在feature_all資料夾中
 - 6/2 中午以前上傳好10-fold CV predict結果的csv(20個檔案)到google drive: feature_all/predict_valid_data & feature_all/predict_unverified_data
   
-  
   - csv header格式為fname,prob。(csv的第一個row麻煩再寫入此header，命名為自己英文名字開頭)
   
-  
   - prob為softmax predict出來結果的1D numpy array，shape為(41,)。依照map.pkl的數字順序，第一個數字代表該fname是屬於map.pkl第0類的機率(也就是Hi-hat)，第二個數字代表該fname是屬於1類的機率(Saxophone)，第三個數字代表該fname是2的機率...etc
-  
-  
-  
+    
   - 存成csv的時候別把row的index值存進去，只要fname,prob就好了，THX
   
-  
   - training時請注意各fold的label順序是否一致，predict valid data時記得寫入該對應的fname
   
 
