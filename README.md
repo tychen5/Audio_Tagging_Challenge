@@ -27,6 +27,7 @@
   - training時請注意各fold的label順序是否一致，predict valid data時記得寫入該對應的fname
   
 
+- 在6/3以前大家可以任意上傳到kaggle去直接測試自己的model acc
 - 5/31 晚上1900 教研館319討論遇到的問題、IDEA、創意、架構、方法改良~~
 
 ## 版本請注意 ##

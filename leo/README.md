@@ -16,6 +16,9 @@ hello there~
 - Bagging
 - first try should do the mfcc feature first
 - simple baseline ensemble
+- strong baseline phase1 stage2 step1: ensemble verify the unverified data
+- strong baseline phase1 stage2 step2: train the xgb and lgb voting clf
+- try to train ConvLSTM (?)
 
 ## Feature Extracting ##
 - Using MFCC extract spectrogram of 40*345
@@ -23,8 +26,8 @@ hello there~
 
 ## Bagging ##
 To lower variance error
-- In phase 1 split to 30% * 3 for training and validate, 10% for testing
-- In phase 2 do the 6-fold
+- In simple baseline phase 1 split to 30% * 3 for training and validate, 10% for testing
+- In simple baseline phase 2 do the 6-fold
 
 ## Boosting ##
 To lower bias error
