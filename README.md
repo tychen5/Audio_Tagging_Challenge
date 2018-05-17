@@ -12,6 +12,7 @@
 - jerry: RAW + LSTM/GRU model
 - mow: MFCC + CNN2D model
 - mike: RAW + CNN1D model
+- 如果有model train不上去至少65% acc的在麻煩提出看要換啥model了~
 - 每個人用自己的10個model predict該fold的validation data以及所有unverified data，所以每個人共需要上傳20個csv
 - 使用MFCC/RAW於google drive feature_all/中的train_X來訓練model
 - 全部的label放在feature_all資料夾中
