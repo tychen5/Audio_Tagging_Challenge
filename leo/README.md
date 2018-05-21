@@ -19,6 +19,7 @@ hello there~
 - strong baseline phase1 stage2 step1: ensemble verify the unverified data
 - strong baseline phase1 stage2 step2: train the xgb and lgb voting clf
 - try to train ConvLSTM (?)
+- Phase2 should use phase1's pre-trained model to initialize parameters to fine-tune
 
 ## Feature Extracting ##
 - Using MFCC extract spectrogram of 40*345
