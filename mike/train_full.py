@@ -173,7 +173,6 @@ if not os.path.exists(MODEL_FOLDER):
 
 
 
-
 kf = KFold(n_splits=10)
 
 i = 0
