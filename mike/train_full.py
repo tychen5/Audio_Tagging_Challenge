@@ -33,16 +33,13 @@ from sklearn.model_selection import KFold
 
 import resnet
 
+
 # gpu usage limit ==============================================================
 '''
 import tensorflow as tf
-
 gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
 sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
-
-# 設定 Keras 使用的 TensorFlow Session
 tf.keras.backend.set_session(sess)
-
 '''
 # category map dict =====================================================
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
@@ -121,26 +118,42 @@ def get_2d_conv_model(data):
 
     # first layer need input shape
     # random 64 feature detector
+<<<<<<< HEAD
     model.add(Conv2D(32, kernel_size=(5, 5), input_shape=data.shape, padding='same', kernel_initializer='glorot_normal'))
+=======
+    model.add(Conv2D(64, kernel_size=(5, 5), input_shape=data.shape, padding='same', kernel_initializer='glorot_normal'))
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
     # relu Enhanced picture quality
     model.add(LeakyReLU(alpha=0.03))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
     model.add(Dropout(0.25))
 
+<<<<<<< HEAD
     model.add(Conv2D(64, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+=======
+    model.add(Conv2D(256, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
     model.add(LeakyReLU(alpha=0.03))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
     model.add(Dropout(0.3))
 
+<<<<<<< HEAD
     model.add(Conv2D(128, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+=======
+    model.add(Conv2D(512, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
     model.add(LeakyReLU(alpha=0.03))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
     model.add(Dropout(0.35))
 
+<<<<<<< HEAD
     model.add(Conv2D(128, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+=======
+    model.add(Conv2D(512, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
     model.add(LeakyReLU(alpha=0.03))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
@@ -159,6 +172,10 @@ def get_2d_conv_model(data):
 
     model.add(Dense(nclass, activation='softmax', kernel_initializer='glorot_normal'))
 
+<<<<<<< HEAD
+=======
+    model.summary()
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
 
     opt = optimizers.Adam(0.0001)
     model.compile(optimizer=opt, loss=losses.categorical_crossentropy, metrics=['acc'])
@@ -187,7 +204,11 @@ for train_index, test_index in kf.split(X):
     checkpoint = ModelCheckpoint('model_full/best_%d_{val_acc:.5f}.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
 
     # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
+<<<<<<< HEAD
     early = EarlyStopping(monitor="val_acc", mode="max", patience=30)
+=======
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=10)
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
 
 
     callbacks_list = [checkpoint, early]
@@ -207,5 +228,11 @@ for train_index, test_index in kf.split(X):
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
                         batch_size=128, epochs=10000)
 
+<<<<<<< HEAD
+=======
+    history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
+                        batch_size=128, epochs=10000)
+
+>>>>>>> d46f9df6b3b7bb66a14e1d8a9918c3c4839d5b05
 
 
