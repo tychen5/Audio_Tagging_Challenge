@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np 
 from sklearn.model_selection import KFold
 import pickle as pk 
+import os
 
 from keras.utils import to_categorical ,Sequence
 
@@ -33,17 +34,21 @@ print(df_manu.head(3))
 print(X.shape)
 print(Y.shape)
 
+fold_path = 'data/ten_fold_data'
+if not os.path.exists(fold_path):
+    os.mkdir(fold_path)
+
 
 kf = KFold(n_splits=10)
-
+k = 0
+# split manu data
 for train_index, test_index in kf.split(manu_veri_idx):
-    X_train , X_test = X[train_index], X[test_index]
-    Y_train, Y_test = Y[train_index], Y[test_index]
+    k+=1
+    X_train , X_valid = X[train_index], X[test_index]
+    Y_train, Y_valid = Y[train_index], Y[test_index]
     
-    print('\n')
-    print(X_train.shape)
-    print(X_test.shape)
-    print('\n')
-    print(Y_train.shape)
-    print(Y_test.shape)
-    break
+    np.save( os.path.join(fold_path, 'X_train_{}'.format(k)), X_train)
+    np.save( os.path.join(fold_path, 'Y_train{}'.format(k)), Y_train)
+    np.save( os.path.join(fold_path, 'X_valid_{}'.format(k)), X_valid)
+    np.save( os.path.join(fold_path, 'Y_valid_{}'.format(k)), Y_valid)
+    print('{} fold split done'.format(k))
