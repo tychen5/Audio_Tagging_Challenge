@@ -26,7 +26,13 @@ manu_veri_idx = df_manu.index.values
 
 # manu_train
 X =  audio_martix[manu_veri_idx]
-Y =  df_manu['onehot'].values
+Y =  df_manu['onehot'].tolist()
+Y = np.array(Y)
+Y = Y.reshape(-1 ,41)
+
+mean = np.mean(X, axis=0)
+std = np.std(X, axis=0)
+X = (X - mean)/std
 
 print(manu_veri_label[0:10])
 print(manu_veri_idx[0:10])
@@ -48,7 +54,7 @@ for train_index, test_index in kf.split(manu_veri_idx):
     Y_train, Y_valid = Y[train_index], Y[test_index]
     
     np.save( os.path.join(fold_path, 'X_train_{}'.format(k)), X_train)
-    np.save( os.path.join(fold_path, 'Y_train{}'.format(k)), Y_train)
+    np.save( os.path.join(fold_path, 'Y_train_{}'.format(k)), Y_train)
     np.save( os.path.join(fold_path, 'X_valid_{}'.format(k)), X_valid)
     np.save( os.path.join(fold_path, 'Y_valid_{}'.format(k)), Y_valid)
     print('{} fold split done'.format(k))

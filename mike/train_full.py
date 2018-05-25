@@ -180,8 +180,18 @@ for train_index, test_index in kf.split(X):
 
     i +=1
 
-    X_train, X_test = X[train_index], X[test_index]
-    Y_train, Y_test = Y[train_index], Y[test_index]
+    #X_train, X_test = X[train_index], X[test_index]
+    #Y_train, Y_test = Y[train_index], Y[test_index]
+
+    X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
+    Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 
+    X_test = np.load('data/ten_fold_data/X_valid_{}.npy'.format(i))
+    Y_test = np.load('data/ten_fold_data/Y_valid_{}.npy'.format(i))
+    
+    print(X_train.shape)
+    print(Y_train.shape)
+    print(X_test.shape)
+    print(Y_test.shape)
 
     # checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_loss', verbose=1, save_best_only=True)
     checkpoint = ModelCheckpoint('model_full/best_%d_{val_acc:.5f}.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
@@ -202,8 +212,11 @@ for train_index, test_index in kf.split(X):
               optimizer='adam',
               metrics=['accuracy'])
 
-    model.summary()
+   # model.summary()
 
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
                         batch_size=128, epochs=10000)
+    
+
+    
 
