@@ -4,6 +4,8 @@ import sys
 import os
 import pickle as pk
 import pandas as pd
+from os import listdir
+from os.path import isfile, join
 
 
 from keras.utils import to_categorical ,Sequence
@@ -22,6 +24,7 @@ from keras import backend as K
 
 # calculate accuracy
 from sklearn.metrics import accuracy_score
+
 
 
 def write2CSV(pred, path):
@@ -56,15 +59,23 @@ csv_folder = 'predict_csv'
 if not os.path.exists(csv_folder):
     os.mkdir(csv_folder)
 
-score = 0.0
+mypath = 'model_full'
+models = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))]
 
-for i in range(1,11):
+score = 0.0
+print(models)
+
+for i , m_file in enumerate(models):
+
     print('round : {}'.format(i))
 
     # predict
+    model = load_model(m_file) 
+    # model.summary()
+    result = model.predict(X,verbose = 1)
+
+
     '''
-    model = load_model('model_full/best_{}.h5'.format(i)) 
-    result = model.predict(X)
     np.save('predict_csv/result_{}'.format(i),result)
     '''
 
@@ -74,15 +85,15 @@ for i in range(1,11):
     df = pd.DataFrame(result , columns = head)
     df.insert(0, 'ID', Y_index)
     df.to_csv('predict_csv/mike_predict_{}.csv'.format(i), index=False)
-    '''
+    
 
     result = np.load('predict_csv/result_{}.npy'.format(i))
+    '''
 
     # calculate accuracy
     score += result
 
-# pred = np.argmax(score, axis=-1)
-# print(pred[0:3])
+
 
 # pick best 3 class
 output = []
