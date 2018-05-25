@@ -119,6 +119,8 @@ mike/*.csv
 mike/model_new
 mike/predict_test_csv
 mike/predict_train_csv
+mike/resnet_varified
+mike/predict_valid_csv
 =======
 
 # ignore useless cache

@@ -25,11 +25,6 @@ from keras import backend as K
 from sklearn.metrics import accuracy_score
 
 
-def write2CSV(pred, path):
-    with open(path, 'w') as f:
-        print('id,label', file=f)
-        print('\n'.join(['{},{}'.format(i, p) for (i, p) in enumerate(pred)]), file=f)
-
 # load data 
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
 

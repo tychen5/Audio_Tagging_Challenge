@@ -21,6 +21,7 @@ df_manu['onehot'] = df_manu['trans'].apply(lambda x: to_categorical(x,num_classe
 
 # manu index index 
 manu_veri_idx = df_manu.index.values
+fnames = df_manu['fname'].values
 
 # manu_train
 X =  audio_martix[manu_veri_idx]
@@ -49,11 +50,13 @@ for train_index, test_index in kf.split(manu_veri_idx):
     k+=1
     X_train , X_valid = X[train_index], X[test_index]
     Y_train, Y_valid = Y[train_index], Y[test_index]
+    Y_valid_fname = fnames[test_index]
     
     np.save( os.path.join(fold_path, 'X_train_{}'.format(k)), X_train)
     np.save( os.path.join(fold_path, 'Y_train_{}'.format(k)), Y_train)
     np.save( os.path.join(fold_path, 'X_valid_{}'.format(k)), X_valid)
     np.save( os.path.join(fold_path, 'Y_valid_{}'.format(k)), Y_valid)
+    np.save( os.path.join(fold_path, 'valid_fname_{}'.format(k)), Y_valid_fname)
     print('{} fold split done'.format(k))
 
 print('verified  data split done =====================')

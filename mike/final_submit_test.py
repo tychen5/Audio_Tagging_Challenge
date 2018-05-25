@@ -41,9 +41,6 @@ X = np.load('X_test.npy')
 name = pd.read_csv('data/sample_submission.csv')
 X_name = name['fname'].tolist()
 
-# print(name.head(3))
-# print(X_name[0:3])
-
 
 # #  Normalization =====================================================
 mean = np.mean(X, axis=0)
@@ -59,18 +56,23 @@ csv_folder = 'predict_csv'
 if not os.path.exists(csv_folder):
     os.mkdir(csv_folder)
 
-mypath = 'model_full'
+mypath = 'resnet_varified'
 models = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))]
 
+print(len(models))
+
 score = 0.0
+
 print(models)
 
 for i , m_file in enumerate(models):
 
     print('round : {}'.format(i))
+    
 
     # predict
-    model = load_model(m_file) 
+    # model = load_model(m_file) 
+    model = load_model(m_file)
     # model.summary()
     result = model.predict(X,verbose = 1)
 
