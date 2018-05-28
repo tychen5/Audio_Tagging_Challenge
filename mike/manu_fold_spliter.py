@@ -60,12 +60,16 @@ for train_index, test_index in kf.split(manu_veri_idx):
     print('{} fold split done'.format(k))
 
 print('verified  data split done =====================')
+
 # df_unmanu ================================================
 
 df_unmanu = df[df['manually_verified'] == 0]
 df_unmanu['trans'] = df_unmanu['label'].map(map_dict)
 df_unmanu['onehot'] = df_unmanu['trans'].apply(lambda x: to_categorical(x,num_classes=41))
 unmanu_veri_idx = df_unmanu.index.values
+
+un_fnames = df_unmanu['fname'].values
+
 X = audio_martix[unmanu_veri_idx]
 Y = df_unmanu['onehot'].tolist()
 Y = np.array(Y)
@@ -75,8 +79,9 @@ mean = np.mean(X, axis=0)
 std = np.std(X, axis=0)
 X = (X - mean)/std
 
-np.save( os.path.join(fold_path, 'X_unverified'.format(k)), X)
-np.save( os.path.join(fold_path, 'Y_unverified'.format(k)), Y)
+np.save( os.path.join(fold_path, 'X_unverified'), X)
+np.save( os.path.join(fold_path, 'Y_unverified'), Y)
+np.save( os.path.join(fold_path, 'fname_unverified'), un_fnames)
 
 
 print(unmanu_veri_idx[0:10])
