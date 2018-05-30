@@ -14,7 +14,7 @@ df = pd.read_csv('data/train_label.csv')
 # audio_martix = np.load('data/raw/X_train.npy')
 audio_martix = np.load('data/mfcc/X_train.npy')
 
-# df_unmanu ================================================
+# df_manu ================================================
 df_manu = df[df['manually_verified'] == 1]
 df_manu['trans'] = df_manu['label'].map(map_dict)
 df_manu['onehot'] = df_manu['trans'].apply(lambda x: to_categorical(x,num_classes=41))

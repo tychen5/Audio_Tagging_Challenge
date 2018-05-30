@@ -58,12 +58,16 @@ if not os.path.exists(csv_folder):
 mypath = 'model_full'
 models = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))]
 
+mypath_2 = 'model_cnn2d'
+models_2 = [join(mypath_2, f) for f in listdir(mypath_2) if isfile(join(mypath_2, f))]
+
+models += models_2
+
+print(models)
 
 score = 0.0
 
 for i , m_file in enumerate(models):
-    if i == 7:
-        continue
         
     print('round : {}'.format(i))
     

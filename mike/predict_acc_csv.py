@@ -37,6 +37,7 @@ for k in range(1,11):
     save_name_un = 'mike_resnet_unverified'
 
     model = load_model('resnet_varified/best_{}.h5'.format(k))
+    
     X_valid = np.load('data/ten_fold_data/X_valid_{}.npy'.format(k))
     Y_valid = np.load('data/ten_fold_data/Y_valid_{}.npy'.format(k))
     valid_fame = np.load('data/ten_fold_data/valid_fname_{}.npy'.format(k))

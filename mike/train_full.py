@@ -75,95 +75,6 @@ mean = np.mean(X, axis=0)
 std = np.std(X, axis=0)
 X = (X - mean)/std
 
-# conv2d func =====================================================
-
-def get_2d_conv_model(data):
-
-    nclass = len(Y[0])
-
-    # print(data.shape)
-    inp = Input(shape=(data.shape))
-    # print(inp)
-    '''
-    x = Convolution2D(32, (4,10), padding="same")(inp)
-    x = BatchNormalization()(x)
-    x = Activation("relu")(x)
-    x = MaxPool2D()(x)
-
-    x = Convolution2D(32, (4,10), padding="same")(x)
-    x = BatchNormalization()(x)
-    x = Activation("relu")(x)
-    x = MaxPool2D()(x)
-
-    x = Convolution2D(32, (4,10), padding="same")(x)
-    x = BatchNormalization()(x)
-    x = Activation("relu")(x)
-    x = MaxPool2D()(x)
-
-    x = Convolution2D(32, (4,10), padding="same")(x)
-    x = BatchNormalization()(x)
-    x = Activation("relu")(x)
-    x = MaxPool2D()(x)
-
-    x = Flatten()(x)
-    x = Dense(64)(x)
-    x = BatchNormalization()(x)
-    x = Activation("relu")(x)
-    out = Dense(nclass, activation=softmax)(x)
-
-    model = models.Model(inputs=inp, outputs=out)
-    '''
-
-    model = Sequential()
-
-    # first layer need input shape
-    # random 64 feature detector
-
-    model.add(Conv2D(64, kernel_size=(5, 5), input_shape=data.shape, padding='same', kernel_initializer='glorot_normal'))
-    model.add(LeakyReLU(alpha=0.03))
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
-    model.add(Dropout(0.25))
-
-
-    model.add(Conv2D(256, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
-    model.add(LeakyReLU(alpha=0.03))
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
-    model.add(Dropout(0.3))
-
-
-
-    model.add(Conv2D(512, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
-    model.add(LeakyReLU(alpha=0.03))
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
-    model.add(Dropout(0.35))
-
-    
-    model.add(Conv2D(512, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
-    model.add(LeakyReLU(alpha=0.03))
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
-    model.add(Dropout(0.4))
-
-    model.add(Flatten())
-
-    # fully connected layer
-    model.add(Dense(512, activation='relu', kernel_initializer='glorot_normal'))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.5))
-
-    model.add(Dense(512, activation='relu', kernel_initializer='glorot_normal'))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.5))
-
-    model.add(Dense(nclass, activation='softmax', kernel_initializer='glorot_normal'))
-
-    model.summary()
-    opt = optimizers.Adam(0.0001)
-    model.compile(optimizer=opt, loss=losses.categorical_crossentropy, metrics=['acc'])
-    return model
 
 # five fold cross validation =====================================================
 MODEL_FOLDER = 'model_full'
@@ -172,16 +83,12 @@ if not os.path.exists(MODEL_FOLDER):
     os.mkdir(MODEL_FOLDER)
 
 
-
 kf = KFold(n_splits=10)
 
 i = 0
 for train_index, test_index in kf.split(X):
 
     i +=1
-
-    #X_train, X_test = X[train_index], X[test_index]
-    #Y_train, Y_test = Y[train_index], Y[test_index]
 
     X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
     Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 

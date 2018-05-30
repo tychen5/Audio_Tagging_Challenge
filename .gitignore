@@ -122,6 +122,7 @@ mike/predict_train_csv
 mike/resnet_varified
 mike/predict_valid_csv
 mike/predict_unverified_csv
+mike/model_cnn2d/
 =======
 
 # ignore useless cache
