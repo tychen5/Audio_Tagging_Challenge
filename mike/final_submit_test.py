@@ -4,6 +4,8 @@ import sys
 import os
 import pickle as pk
 import pandas as pd
+from os import listdir
+from os.path import isfile, join
 
 
 from keras.utils import to_categorical ,Sequence
@@ -24,6 +26,7 @@ from keras import backend as K
 from sklearn.metrics import accuracy_score
 
 
+
 def write2CSV(pred, path):
     with open(path, 'w') as f:
         print('id,label', file=f)
@@ -32,14 +35,9 @@ def write2CSV(pred, path):
 
 # load data 
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
-
-
 X = np.load('X_test.npy')
 name = pd.read_csv('data/sample_submission.csv')
 X_name = name['fname'].tolist()
-
-# print(name.head(3))
-# print(X_name[0:3])
 
 
 # #  Normalization =====================================================
@@ -56,15 +54,31 @@ csv_folder = 'predict_csv'
 if not os.path.exists(csv_folder):
     os.mkdir(csv_folder)
 
+# mypath = 'resnet_varified'
+mypath = 'model_full'
+models = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))]
+
+mypath_2 = 'model_cnn2d'
+models_2 = [join(mypath_2, f) for f in listdir(mypath_2) if isfile(join(mypath_2, f))]
+
+models += models_2
+
+print(models)
+
 score = 0.0
 
-for i in range(1,11):
+for i , m_file in enumerate(models):
+        
     print('round : {}'.format(i))
-
+    
     # predict
+    # model = load_model(m_file) 
+    model = load_model(m_file)
+    # model.summary()
+    result = model.predict(X,verbose = 1)
+
+
     '''
-    model = load_model('model_full/best_{}.h5'.format(i)) 
-    result = model.predict(X)
     np.save('predict_csv/result_{}'.format(i),result)
     '''
 
@@ -74,15 +88,13 @@ for i in range(1,11):
     df = pd.DataFrame(result , columns = head)
     df.insert(0, 'ID', Y_index)
     df.to_csv('predict_csv/mike_predict_{}.csv'.format(i), index=False)
-    '''
-
     result = np.load('predict_csv/result_{}.npy'.format(i))
+    '''
 
     # calculate accuracy
     score += result
 
-# pred = np.argmax(score, axis=-1)
-# print(pred[0:3])
+
 
 # pick best 3 class
 output = []

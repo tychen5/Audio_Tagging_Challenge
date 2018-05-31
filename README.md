@@ -30,6 +30,9 @@
 - 在6/3以前大家可以任意上傳到kaggle去直接測試自己的model acc
 - 5/31 晚上1900 教研館319討論遇到的問題、IDEA、創意、架構、方法改良~~
 
+- 同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data
+- 訓練好十個model以後，每個model都要predict全部的test_X，上傳csv並填寫各model那個fold的validation accuracy
+
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
 - scikit-learn 0.19.1
@@ -51,8 +54,8 @@
 * 需要把outlier長度的audio踢掉(1.5*iqr / 95%)
 * data normalized到0~1之間 (-min)/(max-min)
 * 10-fold CV (sklearn.cross_validation.StratifiedKFold)=>ensemble/bagging
-* MFCC/FBANK
-* data augmentation
+* MFCC/FBANK/RAW
+* data augmentation : 速度放慢x0.9、速度加快x1.1。再mfcc去升級一個key或下降一個key(+-2)。加入background noise => https://github.com/keunwoochoi/kapre 、 https://github.com/faroit/awesome-python-scientific-audio 、 https://muda.readthedocs.io/en/latest/examples.html 
 * CNN1D/CNN2D/LSTM/GRU/ConvLSTM
 * random foreset clf/ XGB clf(gpu)/ catboost clf (gpu) => https://www.kaggle.com/mainya/stacking-xgboost-lightgbm-catboost 
 * train on manually labeled or two times, and train on other label
