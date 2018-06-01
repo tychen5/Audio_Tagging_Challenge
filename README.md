@@ -8,7 +8,7 @@
 ## Announcement Phase1 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
-- 將訓練好的model之該valid fold data ACC填至表單 ( https://docs.google.com/spreadsheets/d/1vTM0qrHe3V_AaR0PKjnblsMA6EKb73mSNiEIjgwyy70/edit#gid=0 ) ，希望此次大家各自的10個model的ACC至少可以有0.65~0.7，可能要多嘗試一些參數來tune
+- 將訓練好的model之該valid fold data ACC填至表單 ( https://docs.google.com/spreadsheets/d/1vTM0qrHe3V_AaR0PKjnblsMA6EKb73mSNiEIjgwyy70/edit#gid=0 ) ，希望此次大家各自的10個model的ACC至少可以有0.7，可能要多嘗試一些參數來tune
 - jerry: RAW + LSTM/GRU model
 - mow: MFCC + CNN2D model
 - mike: RAW + CNN1D model
@@ -16,7 +16,7 @@
 - 每個人用自己的10個model predict該fold的validation data以及所有unverified data，所以每個人共需要上傳20個csv
 - 使用MFCC/RAW於google drive feature_all/中的train_X來訓練model
 - 全部的label放在feature_all資料夾中
-- 6/2 中午以前上傳好10-fold CV predict結果的csv(20個檔案)到google drive: feature_all/predict_valid_data & feature_all/predict_unverified_data
+- 6/3 傍晚以前上傳好10-fold CV predict結果的csv(20個檔案)到google drive: feature_all/predict_valid_data & feature_all/predict_unverified_data
   
   - csv header格式為fname,。(csv的第一個row麻煩寫入header，命名為自己英文名字開頭)
   
@@ -28,7 +28,8 @@
   
 
 - 在6/3以前大家可以任意上傳到kaggle去直接測試自己的model acc
-- 5/31 晚上1900 教研館319討論遇到的問題、IDEA、創意、架構、方法改良~~
+
+- 6/8 晚上1900 教研館319討論遇到的問題、IDEA、創意、架構、方法改良~~
 
 - 同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data
 - 訓練好十個model以後，每個model都要predict全部的test_X，上傳csv並填寫各model那個fold的validation accuracy
