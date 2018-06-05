@@ -8,9 +8,10 @@
 ## Announcement Phase2 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
 ### Update: 20180605
-- phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)
+- phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)(feature_all/)
 - 使用原本的model load進來以後直接進行fine tune，不用重頭開始train
-- 重tune好十個model以後，每個model都要predict全部的test_X，上傳csv並填寫各model那個fold的validation accuracy
+- 重tune好十個model以後，每個model都要predict全部的test_X，上傳csv(data/phase2/predict_test/)並填寫各model那個fold的validation accuracy(務必依照csv檔名填寫X_test ACC表單)
+- 理論上validation accuracy應該可以提升5%以上
 
 ***
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
@@ -37,8 +38,6 @@
 
 - 6/8 晚上1900 教研館319討論遇到的問題、IDEA、創意、架構、方法改良~~
 
-- 同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data
-- 訓練好十個model以後，每個model都要predict全部的test_X，上傳csv並填寫各model那個fold的validation accuracy
 
 ## 版本請注意 ##
 *基本上皆採用最新的，這樣最單純以免合不起來*
