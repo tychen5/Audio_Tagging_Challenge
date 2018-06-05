@@ -12,9 +12,11 @@
 - 使用原本的model load進來以後直接進行fine tune，不用重頭開始train
 - 重tune好十個model以後，每個model都要predict全部的test_X，上傳csv(data/phase2/predict_test/)並填寫各model那個fold的validation accuracy(務必依照csv檔名填寫X_test ACC表單)
 - 理論上validation accuracy應該可以提升5%以上
+- 記得要用所給定的map.pkl來轉換數字跟label
 
 ***
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
+- predict unverified data時，請務必按照順序
 - 將訓練好的model之該valid fold data ACC填至表單 ( https://docs.google.com/spreadsheets/d/1vTM0qrHe3V_AaR0PKjnblsMA6EKb73mSNiEIjgwyy70/edit#gid=0 ) ，希望此次大家各自的10個model的ACC至少可以有0.7，可能要多嘗試一些參數來tune
 - jerry: RAW + LSTM/GRU model
 - mow: MFCC + CNN2D model
