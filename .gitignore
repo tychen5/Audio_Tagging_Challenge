@@ -123,6 +123,8 @@ mike/resnet_varified
 mike/predict_valid_csv
 mike/predict_unverified_csv
 mike/model_cnn2d/
+mike/model_cnn2d_verified
+mike/resnet_varified_refine
 =======
 
 # ignore useless cache

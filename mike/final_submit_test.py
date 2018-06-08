@@ -35,7 +35,7 @@ def write2CSV(pred, path):
 
 # load data 
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
-X = np.load('X_test.npy')
+X = np.load('data/X_test.npy')
 name = pd.read_csv('data/sample_submission.csv')
 X_name = name['fname'].tolist()
 
@@ -55,13 +55,13 @@ if not os.path.exists(csv_folder):
     os.mkdir(csv_folder)
 
 # mypath = 'resnet_varified'
-mypath = 'model_full'
+mypath = 'resnet_varified'
 models = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))]
 
-mypath_2 = 'model_cnn2d'
-models_2 = [join(mypath_2, f) for f in listdir(mypath_2) if isfile(join(mypath_2, f))]
+# mypath_2 = 'model_cnn2d_verified'
+# models_2 = [join(mypath_2, f) for f in listdir(mypath_2) if isfile(join(mypath_2, f))]
 
-models += models_2
+# models += models_2
 
 print(models)
 
