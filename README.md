@@ -7,13 +7,14 @@
 
 ## Announcement Phase2 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
-### Update: 20180605
-- phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)(feature_all/)
+### Update: 20180608
+- phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)(feature_all/)(共有2269筆需要append回人工verfied的三千多筆資料的9-fold進行training，把model load近來直接fit十次)
 - 使用原本的model load進來以後直接進行fine tune，不用重頭開始train
-- 重tune好十個model以後，每個model都要predict全部的test_X，上傳csv(data/phase2/predict_test/)並填寫各model那個fold的validation accuracy(務必依照csv檔名填寫X_test ACC表單)
+- 重tune好十個model以後，每個model都要predict全部的test_X，上傳csv(data/phase2/predict_test/)並填寫各model那個fold的validation accuracy(務必依照csv檔名填寫X_test ACC表單)(https://drive.google.com/drive/u/3/folders/109W-3BumUKwyjmxL6CiGorPwbOWHp8cP)
 - 理論上validation accuracy應該可以提升5%以上
 - 記得要用所給定的map.pkl來轉換數字跟label
 - 6/13早上以前上傳好十個X_test預測結果csv
+- 6/14禮拜四晚上1930教研館319討論，下一個baseline怎麼辦才可以突破0.9?
 
 ***
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
