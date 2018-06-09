@@ -14,7 +14,8 @@
 - 理論上validation accuracy應該可以提升5%以上
 - 記得要用所給定的map.pkl來轉換數字跟label
 - 6/13早上以前上傳好十個X_test預測結果csv
-- 6/14禮拜四晚上1930教研館319討論，下一個baseline怎麼辦才可以突破0.9?
+- 6/14, 6/14的kaggle給我上傳~在此之前kaggle都歡迎隨便使用上傳~
+- 6/14禮拜四晚上2000教研館319討論，下一個baseline怎麼辦才可以突破0.9?
 
 ***
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
