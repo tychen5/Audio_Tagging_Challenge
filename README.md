@@ -16,7 +16,10 @@
 
 =========以上deadline 0620下午以前============
 
-- Mow: calculate each fname's 41 dimension's max value. Calculate mean and std of ensemble unverified data and testing data.(Mike_testData * 該fold的valid_acc(10-fold) + Jerry的test * weight + Leo的test * weight + Mow的test * weigt)(Mike_unverifiedData * 該fold_validACC(共十份) + Leo的unverified * weight + Jerry's十份 + Mow's十份) Let mean+std be the baseline.(所以會有testing的mean跟std，還有unverfied的mean跟std) 將Mike超過threshold的argmax label of test and unverified給Leo(fname,label)CSV；把Leo predict出unverified跟test的max value，超過threshold的fname,label CSV給Mike；把Jerry predict出unverified、test超過threshold的fname,label CSV給mow，把mow predict unverified、test超過threshold的fname,label給Jerry
+- Mow: 
+- Calculate each fname's 41 dimension's max value. Calculate mean and std of ensemble unverified data and testing data.(Mike_testData * 該fold的valid_acc(10-fold) + Jerry的test * weight + Leo的test * weight + Mow的test * weigt)(Mike_unverifiedData * 該fold_validACC(共十份) + Leo的unverified * weight + Jerry's十份 + Mow's十份) 
+- Let mean+std be the baseline.(所以會有testing的mean跟std，還有unverfied的mean跟std分別使用對應其threshold) 
+- 將Mike超過threshold的argmax label of test and unverified給Leo(fname,label)CSV；把Leo predict出unverified跟test的max value，超過threshold的fname,label CSV給Mike；把Jerry predict出unverified、test超過threshold的fname,label CSV給mow，把mow predict unverified、test超過threshold的fname,label給Jerry。上傳至google drive: https://drive.google.com/drive/u/3/folders/1KIpGlYcSmtMdDP6PJgjXPOjUwpNWwJIG 給大家
 
 =========以上deadline於0621中午以前============
 
