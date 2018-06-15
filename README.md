@@ -5,8 +5,17 @@
 * 僅保留master branch，各自所做的事情放自己的資料夾~
 * 整理好的code與report放final繳交資料夾
 
-## Announcement Phase2 ##
+## Announcement Phase1 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
+
+### Update: 20180615 ###
+- Mike: MFCC=>flatten=>DNN auto-encoder (CNN auto-encoder不用flatten)=>label-spreading to unverified data=>10-fold model (valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
+- Jerry: verified Fbank=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
+- Leo: Fbank=>cnn autoencoder=>label-spreading=>predict testing data and unverified data for mow 
+- Mow: MFCC=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data~
+=========以上deadline 0620下午以前============
+- Mow: calculate mean and std of unverified data and testing data. Let mean+std be the baseline.
+
 ### Update: 20180609
 - phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)(feature_all/)(共有2269筆需要append回人工verfied的三千多筆資料的9-fold進行training，把model load近來直接fit十次)
 - 使用原本的model load進來以後直接進行fine tune，不用重頭開始train
@@ -61,6 +70,11 @@
 * 最多樣本的類別有300個 (三分之一種類)
 * 每秒有44100個點
 * 一個點有65536種可能
+## Voice ##
+* 最少樣本的類別有94個 (一種)
+* 最多樣本的類別有300個 (三分之一種類)
+* 每秒有44100個點
+* 一個點有65536種可能
 * audio length在不同類別會不一樣(可當成一種feature)
 * 需要把outlier長度的audio踢掉(1.5*iqr / 95%)
 * data normalized到0~1之間 (-min)/(max-min)
@@ -76,8 +90,3 @@
 * sklearn.preprocessing import StandardScaler  / MinMaxScaler / normalize (including train_X & test_X)
 * def extract_features(files, path): in kernel notebook
 
-
-## 環境安裝 ## 
-```bash
-    $ pip install -r requirements.txt
-```
