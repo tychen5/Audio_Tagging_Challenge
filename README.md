@@ -10,11 +10,18 @@
 
 ### Update: 20180615 ###
 - Mike: MFCC=>flatten=>DNN auto-encoder (CNN auto-encoder不用flatten)=>label-spreading to unverified data=>10-fold model (valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
-- Jerry: verified Fbank=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
+- Jerry: verified Fbank=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive
 - Leo: Fbank=>cnn autoencoder=>label-spreading=>predict testing data and unverified data for mow 
 - Mow: MFCC=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data~
 =========以上deadline 0620下午以前============
-- Mow: calculate mean and std of unverified data and testing data. Let mean+std be the baseline.
+- Mow: calculate each fname's 41 dimension's max value. Calculate mean and std of ensemble unverified data and testing data.(Mike_testData*該fold的valid_acc(10-fold) + Jerry的test*weight + Leo的test*weight + Mow的test*weigt)(Mike_unverifiedData*該fold_validACC(共十份) + Leo的unverified*weight + Jerry's十份 + Mow's十份) Let mean+std be the baseline.(所以會有testing的mean跟std，還有unverfied的mean跟std) 將Mike超過threshold的argmax label of test and unverified給Leo(fname,label)CSV；把Leo predict出unverified跟test的max value，超過threshold的fname,label CSV給Mike；把Jerry predict出unverified、test超過threshold的fname,label CSV給mow，把mow predict unverified、test超過threshold的fname,label給Jerry
+=========以上deadline於0621中午以前============
+Phase2: co-train
+- 將mow給的csv對照自己的feature，拿另外一方的unverified跟test結合verfied data進行fine tune，再一次重新predict不在mow給的csv之其他testing跟unverified data，再拿回給mow重新計算mean std label步驟
+- Mike跟Leo再進行co-train的時候只拿verified結合另一方給的test跟unverified data，不會把原本在phase1 stage2的unverified data全部拿進來，而是以對方給的unverified data為準
+
+
+- 6/21晚上1900教研館319討論，需已先進行一次co-train。討論遇到的問題，說明phase2 stage2,3，phase3
 
 ### Update: 20180609
 - phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)(feature_all/)(共有2269筆需要append回人工verfied的三千多筆資料的9-fold進行training，把model load近來直接fit十次)
