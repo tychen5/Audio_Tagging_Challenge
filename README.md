@@ -5,16 +5,47 @@
 * 僅保留master branch，各自所做的事情放自己的資料夾~
 * 整理好的code與report放final繳交資料夾
 
-## Announcement Phase2 ##
+## Announcement Phase1 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
-### Update: 20180608
+
+### Update: 20180616 ###
+- Mike: MFCC=>flatten=>DNN auto-encoder (CNN auto-encoder不用flatten)=>label-spreading to unverified data=>10-fold model (valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
+
+
+* auto-encoder要拿全部的trainX(verified+unverified)跟testX來訓練
+
+- Jerry: verified Fbank=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive
+- Leo: Fbank=>cnn autoencoder=>label-spreading=>predict testing data and unverified data for mow 
+- Mow: MFCC=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data~
+
+=========以上deadline 0620下午以前============
+
+- Mow: 
+- Calculate each fname's 41 dimension's max value. Calculate mean and std of ensemble unverified data and testing data.(Mike_testData * 該fold的valid_acc(10-fold) + Jerry的test * weight + Leo的test * weight + Mow的test * weigt)(Mike_unverifiedData * 該fold_validACC(共十份) + Leo的unverified * weight + Jerry's十份 + Mow's十份) 
+- Let mean+std be the baseline.(所以會有testing的mean跟std，還有unverfied的mean跟std分別使用對應其threshold) 
+- 將Mike超過threshold的argmax label of test and unverified給Leo(fname,label)CSV；把Leo predict出unverified跟test的max value，超過threshold的fname,label CSV給Mike；把Jerry predict出unverified、test超過threshold的fname,label CSV給mow，把mow predict unverified、test超過threshold的fname,label給Jerry。上傳至google drive: https://drive.google.com/drive/u/3/folders/1KIpGlYcSmtMdDP6PJgjXPOjUwpNWwJIG 給大家
+
+=========以上deadline於0621中午以前============
+
+#### Phase2: co-train ####
+
+- 將mow給的csv對照自己的feature，拿另外一方的unverified跟test結合verfied data進行fine tune，再一次重新predict不在mow給的csv之其他testing跟unverified data，再拿回給mow重新計算mean std label步驟
+- Mike跟Leo再進行co-train的時候只拿verified結合另一方給的test跟unverified data，不會把原本在phase1 stage2的unverified data全部拿進來，而是以對方給的unverified data為準
+
+
+- 6/21晚上1900教研館319討論，需已先進行一次co-train。討論遇到的問題，說明phase2 stage2,3，phase3
+
+***
+
+### Update: 20180609
 - phase2 stage1:  同樣的model要用同樣原本的1個fold進行validation，training用原本同樣的9個fold+我們verified後新增的data(X_train_ens_verified.npy , Y_train_ens_verified.csv)(feature_all/)(共有2269筆需要append回人工verfied的三千多筆資料的9-fold進行training，把model load近來直接fit十次)
 - 使用原本的model load進來以後直接進行fine tune，不用重頭開始train
 - 重tune好十個model以後，每個model都要predict全部的test_X，上傳csv(data/phase2/predict_test/)並填寫各model那個fold的validation accuracy(務必依照csv檔名填寫X_test ACC表單)(https://drive.google.com/drive/u/3/folders/109W-3BumUKwyjmxL6CiGorPwbOWHp8cP)
 - 理論上validation accuracy應該可以提升5%以上
 - 記得要用所給定的map.pkl來轉換數字跟label
 - 6/13早上以前上傳好十個X_test預測結果csv
-- 6/14禮拜四晚上1930教研館319討論，下一個baseline怎麼辦才可以突破0.9?
+- 6/14, 6/14的kaggle給我上傳~~在此之前kaggle都歡迎隨便使用上傳^^
+- 6/14禮拜四晚上2000教研館319討論，下一個baseline怎麼辦才可以突破0.9?
 
 ***
 - phase1 stage1: 各自對train_X及verified label進行shuffle切10 fold(不train unverified的)並記錄好各個model所用來training跟valid/predict的data分別是誰
@@ -60,6 +91,11 @@
 * 最多樣本的類別有300個 (三分之一種類)
 * 每秒有44100個點
 * 一個點有65536種可能
+## Voice ##
+* 最少樣本的類別有94個 (一種)
+* 最多樣本的類別有300個 (三分之一種類)
+* 每秒有44100個點
+* 一個點有65536種可能
 * audio length在不同類別會不一樣(可當成一種feature)
 * 需要把outlier長度的audio踢掉(1.5*iqr / 95%)
 * data normalized到0~1之間 (-min)/(max-min)
@@ -75,8 +111,3 @@
 * sklearn.preprocessing import StandardScaler  / MinMaxScaler / normalize (including train_X & test_X)
 * def extract_features(files, path): in kernel notebook
 
-
-## 環境安裝 ## 
-```bash
-    $ pip install -r requirements.txt
-```

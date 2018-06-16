@@ -39,3 +39,8 @@ To lower bias error
 - In phase 1 use the prediction of phase 1's testing output to tune stage 2
 - In phase 2 using stage1's prediction of train_X to train XGB voting clf, and use stage1's pr
 ediction of test_X to use XGB voting clf
+
+## Semi-Supervised ##
+- 將所有人的結果依據accuracy進行weighted-ensemble
+- 僅留下confidence accuracy超過mean+std的值 或是 confidence accuracy>mean且與未進行人工verfied label相同的data
+- 對原本10-fold進行fine-tuned
