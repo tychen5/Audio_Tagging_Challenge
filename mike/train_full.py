@@ -71,49 +71,88 @@ Y = Y.reshape(-1 , 41)
 print(Y.shape)
 
 #  Normalization =====================================================
-mean = np.mean(X, axis=0)
-std = np.std(X, axis=0)
-X = (X - mean)/std
 
 
 # five fold cross validation =====================================================
-MODEL_FOLDER = 'model_full'
+MODEL_FOLDER = 'model_full_cnn2d'
 
 if not os.path.exists(MODEL_FOLDER):
     os.mkdir(MODEL_FOLDER)
 
+def get_2d_conv_model():
+
+    model = Sequential()
+
+    # first layer need input shape
+    # random 64 feature detector
+    model.add(Conv2D(64, kernel_size=(5, 5), input_shape=(40, 345,1), padding='same', kernel_initializer='glorot_normal'))
+    model.add(LeakyReLU(alpha=0.03))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
+    model.add(Dropout(0.25))
+
+    model.add(Conv2D(256, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+    model.add(LeakyReLU(alpha=0.03))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
+    model.add(Dropout(0.3))
+
+    model.add(Conv2D(512, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+    model.add(LeakyReLU(alpha=0.03))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
+    model.add(Dropout(0.35))
+
+    model.add(Conv2D(512, kernel_size=(3, 3), padding='same', kernel_initializer='glorot_normal'))
+    model.add(LeakyReLU(alpha=0.03))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
+    model.add(Dropout(0.4))
+
+    model.add(Flatten())
+
+    # fully connected layer 
+    model.add(Dense(512, activation='relu', kernel_initializer='glorot_normal'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
+
+    model.add(Dense(512, activation='relu', kernel_initializer='glorot_normal'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
+    model.add(Dense(41, activation='softmax', kernel_initializer='glorot_normal'))
+    return model
+
 
 kf = KFold(n_splits=10)
 
-i = 0
-for train_index, test_index in kf.split(X):
+mean , std = np.load('data/mean_std.npy')
 
-    i +=1
+for i in range(8,11):
 
     X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
     Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 
     X_test = np.load('data/ten_fold_data/X_valid_{}.npy'.format(i))
     Y_test = np.load('data/ten_fold_data/Y_valid_{}.npy'.format(i))
+
+    # normalize
+    X_train = (X_train - mean)/std
+    X_test = (X_test - mean)/std
     
     print(X_train.shape)
     print(Y_train.shape)
     print(X_test.shape)
     print(Y_test.shape)
 
-    # checkpoint = ModelCheckpoint('model/best_%d.h5'%i, monitor='val_loss', verbose=1, save_best_only=True)
-    checkpoint = ModelCheckpoint('model_full/best_%d_{val_acc:.5f}.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
-
-    # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
-    early = EarlyStopping(monitor="val_acc", mode="max", patience=300)
-
-
+    
+    checkpoint = ModelCheckpoint('model_full_cnn2d/best_%d_{val_acc:.5f}.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=80)
     callbacks_list = [checkpoint, early]
 
     print("#"*50)
     print("Fold: ", i)
 
-    # model = get_2d_conv_model(X_train[0])
-    model = resnet.ResnetBuilder.build_resnet_18((1, 40, 345), 41)
+    model = get_2d_conv_model()
+    # model = resnet.ResnetBuilder.build_resnet_18((1, 40, 345), 41)
     
     model.compile(loss='categorical_crossentropy',
               optimizer='adam',
@@ -122,7 +161,7 @@ for train_index, test_index in kf.split(X):
    # model.summary()
 
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
-                        batch_size=128, epochs=10000)
+                        batch_size=32, epochs=10000)
     
 
     

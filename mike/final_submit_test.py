@@ -41,8 +41,9 @@ X_name = name['fname'].tolist()
 
 
 # #  Normalization =====================================================
-mean = np.mean(X, axis=0)
-std = np.std(X, axis=0)
+#mean = np.mean(X, axis=0)
+#std = np.std(X, axis=0)
+mean,std = np.load('data/mean_std.npy')
 X = (X - mean)/std
 
 # # predict ================================================
@@ -55,10 +56,10 @@ if not os.path.exists(csv_folder):
     os.mkdir(csv_folder)
 
 # mypath = 'resnet_varified'
-mypath = 'resnet_varified'
+mypath = 'resnet_verified_refine'
 models = [join(mypath, f) for f in listdir(mypath) if isfile(join(mypath, f))]
 
-# mypath_2 = 'model_cnn2d_verified'
+# mypath_2 = 'cnn2d_verified_refine'
 # models_2 = [join(mypath_2, f) for f in listdir(mypath_2) if isfile(join(mypath_2, f))]
 
 # models += models_2

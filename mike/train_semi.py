@@ -36,14 +36,15 @@ import resnet
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
 
 
-model_path = 'resnet_varified'
-refine_path = 'resnet_varified_refine'
+model_path = 'model_full_cnn2d'
+refine_path = 'cnn2d_verified_refine'
 
 models = [join(model_path, f) for f in listdir(model_path) if isfile(join(model_path, f))]
 
+
+
 if not os.path.exists(refine_path):
     os.mkdir(refine_path)
-
 
 
 X_train_semi = np.load('data/mfcc/X_train_ens_verified.npy')
@@ -56,17 +57,11 @@ Y_train_semi = np.array(Y_train_semi)
 Y_train_semi = Y_train_semi.reshape(-1 ,41)
 
 
-# normalize X_train_semi
-mean = np.mean(X_train_semi, axis=0)
-std = np.std(X_train_semi, axis=0)
-X_train_semi = (X_train_semi - mean)/std
+mean , std = np.load('data/mean_std.npy')
 
-
-for i , m  in enumerate(models):
+# for i , m  in enumerate(models):
+for i in range(1,11):
     
-    # fold 1 - 10  , enumerate 0 - 9
-    i += 1
-    print(i)
     X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
     Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 
     X_test = np.load('data/ten_fold_data/X_valid_{}.npy'.format(i))
@@ -75,6 +70,9 @@ for i , m  in enumerate(models):
     print('verified data:')
     print(X_train.shape)
     print(Y_train.shape)
+    print('semi data')
+    print(X_train_semi.shape)
+    print(Y_train_semi.shape)
     
     
     #append semi data 
@@ -84,6 +82,10 @@ for i , m  in enumerate(models):
     # shuffle new data
     X_train , Y_train = shuffle(X_train, Y_train, random_state=0) 
 
+    # normalize
+    X_train = (X_train - mean)/std
+    X_test = (X_test - mean)/std
+
 
     print('after append semi data:')
     print(X_train.shape)
@@ -91,7 +93,7 @@ for i , m  in enumerate(models):
     print(X_test.shape)
     print(Y_test.shape)
 
-    model = load_model(m)
+    model = load_model(join(model_path,'best_{}.h5'.format(i)))
     checkpoint = ModelCheckpoint(join(refine_path , 'best_semi_%d_{val_acc:.5f}.h5'%i), monitor='val_acc', verbose=1, save_best_only=True)
     early = EarlyStopping(monitor="val_acc", mode="max", patience=5)
 
@@ -99,31 +101,7 @@ for i , m  in enumerate(models):
     print("Fold: ", i)
 
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=[checkpoint, early],
-                        batch_size=128, epochs=10000)
+                        batch_size=64, epochs=10000)
 
     
 
-    
-
-
-#     # early = EarlyStopping(monitor="val_loss", mode="min", patience=10)
-#     early = EarlyStopping(monitor="val_acc", mode="max", patience=300)
-
-
-#     callbacks_list = [checkpoint, early]
-
-#     print("#"*50)
-#     print("Fold: ", i)
-
-#     # model = get_2d_conv_model(X_train[0])
-#     model = resnet.ResnetBuilder.build_resnet_18((1, 40, 345), 41)
-    
-#     model.compile(loss='categorical_crossentropy',
-#               optimizer='adam',
-#               metrics=['accuracy'])
-
-#    # model.summary()
-
-#     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
-#                         batch_size=128, epochs=10000)
-    
