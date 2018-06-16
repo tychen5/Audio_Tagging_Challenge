@@ -74,7 +74,7 @@ print(Y.shape)
 
 
 # five fold cross validation =====================================================
-MODEL_FOLDER = 'model_full_cnn2d'
+MODEL_FOLDER = 'model_full_resnet'
 
 if not os.path.exists(MODEL_FOLDER):
     os.mkdir(MODEL_FOLDER)
@@ -127,7 +127,7 @@ kf = KFold(n_splits=10)
 
 mean , std = np.load('data/mean_std.npy')
 
-for i in range(8,11):
+for i in range(1,11):
 
     X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
     Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 
@@ -144,15 +144,15 @@ for i in range(8,11):
     print(Y_test.shape)
 
     
-    checkpoint = ModelCheckpoint('model_full_cnn2d/best_%d_{val_acc:.5f}.h5'%i, monitor='val_acc', verbose=1, save_best_only=True)
+    checkpoint = ModelCheckpoint(os.path.join(MODEL_FOLDER,'best_%d_{val_acc:.5f}.h5'%i), monitor='val_acc', verbose=1, save_best_only=True)
     early = EarlyStopping(monitor="val_acc", mode="max", patience=80)
     callbacks_list = [checkpoint, early]
 
     print("#"*50)
     print("Fold: ", i)
 
-    model = get_2d_conv_model()
-    # model = resnet.ResnetBuilder.build_resnet_18((1, 40, 345), 41)
+    # model = get_2d_conv_model()
+    model = resnet.ResnetBuilder.build_resnet_18((1, 40, 345), 41)
     
     model.compile(loss='categorical_crossentropy',
               optimizer='adam',
@@ -161,7 +161,7 @@ for i in range(8,11):
    # model.summary()
 
     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
-                        batch_size=32, epochs=10000)
+                        batch_size=128, epochs=10000)
     
 
     

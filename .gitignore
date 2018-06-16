@@ -129,6 +129,7 @@ mike/cnn2d_verified_refine
 mike/cnn2d_verified
 mike/cnn2d_semi_test_csv
 mike/restnet_semi_test_csv
+mike/model_full_resnet
 mike/test_semi_model
 mike/model_full_cnn2d
 =======
