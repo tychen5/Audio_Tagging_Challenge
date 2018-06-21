@@ -8,11 +8,26 @@
 ## Announcement Phase1 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
 
+### Update: 20180621 ###
+- ResNet train起來!!!!!!! + co-train
+- mfcc表單: https://docs.google.com/spreadsheets/d/19FcCYr8R6C-6xOT73jZq7YX7abkGeCZhD2wvwF3HiWo/edit#gid=0
+- model reference: https://github.com/raghakot/keras-resnet
+- mow: resnet-18 + mfcc?
+- mike: resnet-?? + mfcc?
+- jerry: resnet-??? + mfcc?
+- leo: resnet-101 + mfcc6/
+
+* 進行10 fold，先只train verified data
+* predict test data跟unverified data softmax的csv上傳至google drive並填寫valid_acc表單(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)，再進行co-train 
+
+===================以上dead line 6/26晚上以前===============
+
 ### Update: 20180616 ###
 - Mike: MFCC=>flatten=>DNN auto-encoder (CNN auto-encoder不用flatten)=>label-spreading to unverified data=>10-fold model (valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
 
 
 * auto-encoder要拿全部的trainX(verified+unverified)跟testX來訓練
+* normalized也要拿全部的data (包括testX)
 
 - Jerry: verified Fbank=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive
 - Leo: Fbank=>cnn autoencoder=>label-spreading=>predict testing data and unverified data for mow 
