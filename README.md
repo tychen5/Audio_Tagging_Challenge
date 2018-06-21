@@ -18,7 +18,7 @@
 - leo: resnet-101 + mfcc6/
 
 * 進行10 fold，先只train verified data
-* predict test data跟unverified data softmax的csv上傳至google drive並填寫valid_acc表單(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)，再進行co-train 
+* predict test data跟unverified data softmax的csv上傳至google drive並填寫valid_acc表單( https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR  ) ，再進行co-train 
 
 ===================以上dead line 6/26晚上以前===============
 
