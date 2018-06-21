@@ -22,6 +22,8 @@
 
 ===================以上dead line 6/26晚上以前===============
 
+***
+
 ### Update: 20180616 ###
 - Mike: MFCC=>flatten=>DNN auto-encoder (CNN auto-encoder不用flatten)=>label-spreading to unverified data=>10-fold model (valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
 
