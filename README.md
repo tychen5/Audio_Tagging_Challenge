@@ -14,7 +14,7 @@
 - model reference: https://github.com/raghakot/keras-resnet
 - mow: resnet-18 + mfcc?
 - mike: resnet-?? + mfcc?
-- jerry: resnet-??? + mfcc?
+- jerry: resnet-152 + mfcc3
 - leo: resnet-101 + mfcc6/
 
 * 進行10 fold，先只train verified data
