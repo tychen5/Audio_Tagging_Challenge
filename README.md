@@ -12,6 +12,8 @@
 - ResNet train起來!!!!!!! + co-train
 - mfcc表單: https://docs.google.com/spreadsheets/d/19FcCYr8R6C-6xOT73jZq7YX7abkGeCZhD2wvwF3HiWo/edit#gid=0
 - model reference: https://github.com/raghakot/keras-resnet
+- data augmentation ref: https://www.kaggle.com/daisukelab/mixup-cutout-or-random-erasing-to-augment
+- data augmentation repo: https://github.com/yu4u/mixup-generator
 - mow: resnet-18 + mfcc?
 - mike: resnet-?? + mfcc?
 - jerry: resnet-152 + mfcc3
