@@ -18,6 +18,7 @@
 
 - mow拿mike上傳的fname、label對應回自己的unverified跟testing feature，fine tune Phase1存下來的10-fold model，原本各fold的validation data仍作為verified
 - 同理，mike拿mow的；jerry拿leo的；leo拿jerry的
+- 如果自己有兩個以上model的話，就隨便再多挑其他人的來做semi吧^^
 
 ====================以上第一次co-train ===============
 
