@@ -11,8 +11,8 @@
 ### Update: 20180625 ###
 #### Co-Train ####
 - 各model predict各fold的validation data，所以總共會有model數量*10個csv，每十個csv檔案合起來=全部的verified data( https://drive.google.com/drive/u/3/folders/1JqWT4M1MSxQ0xdy2RlpdAAEBn1GQ8b_l  )
-- 各model 的各fold要predict全部的unverified data，所以總共會有model數量x10個csv，每個csv裡面有五千多筆unverified data。接著將自己各model的10 fold進行ensemble：每個foldx該fold的validation acc然後加總，再除以10個validation acc的和，所以只會剩下一個ensemble csv(一樣五千多筆)，求出每筆資料的argmax(也就是label)，以及armax的值(也就是信心指數)，求出信心指數的mean跟std作為threshold，如果超過threshold就記錄下來該fname以及argmax label是啥。所以最後會得到一個csv內容是:fname,label再上傳雲端( https://drive.google.com/drive/u/3/folders/1jzT4HLUEw9P4bG_sSJ6um43EO610ZJFf  )
-- 如同上述做法一樣predict全部9400筆testing data求出自己各model 10-fold的argmax值之mean、std作為threshold，超過mean+std的才記錄下fname跟label是啥，最後存成csv上傳雲端: https://drive.google.com/drive/u/3/folders/1kyDSBRWFJJMapi3q0fKqBFl_aOp8MMZc
+- 各model 的各fold要predict全部的unverified data跟testing data，所以總共會有model數量x20個csv，每個csv裡面有一萬四千多筆unverified data。接著將自己各model的10 fold進行ensemble：每個foldx該fold的validation acc然後加總，再除以10個validation acc的和，所以只會剩下一個ensemble csv(一樣五千多筆+九千四百筆)，求出每筆資料的argmax(也就是label)，以及armax的值(也就是信心指數)，求出信心指數的mean跟std作為threshold，如果超過threshold就記錄下來該fname以及argmax label是啥。所以最後會得到一個csv內容是:fname,label再上傳雲端( https://drive.google.com/drive/u/3/folders/1jzT4HLUEw9P4bG_sSJ6um43EO610ZJFf  )
+- ~~如同上述做法一樣predict全部9400筆testing data求出自己各model 10-fold的argmax值之mean、std作為threshold，超過mean+std的才記錄下fname跟label是啥，最後存成csv上傳雲端: https://drive.google.com/drive/u/3/folders/1kyDSBRWFJJMapi3q0fKqBFl_aOp8MMZc~~
 
 ===以上deadline在禮拜三中午以前，每個人要上傳好自己MODEL們的ensemble semi csv===
 

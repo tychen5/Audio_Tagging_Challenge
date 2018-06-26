@@ -226,11 +226,11 @@ class ResnetBuilder(object):
         block_shape = K.int_shape(block)
         pool2 = AveragePooling2D(pool_size=(block_shape[ROW_AXIS], block_shape[COL_AXIS]),
                                  strides=(1, 1))(block)
-        pool2 = Dropout(0.01+0.14*random.random())(pool2)
+        pool2 = Dropout(0.01+0.09*random.random())(pool2)
 
         flatten1 = Flatten()(pool2)
     
-        dp = 0.05+0.25*random.random()
+        dp = 0.05+0.15*random.random()
         dense = Dense(units=int(num_outputs/(1-dp)),kernel_initializer='lecun_normal', activation='selu')(flatten1)
         bn = BatchNormalization()(dense)
         flatten1 = Dropout(dp)(bn)
