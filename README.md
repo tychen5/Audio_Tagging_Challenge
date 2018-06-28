@@ -10,14 +10,15 @@
 - 快結束了~~
 
 ### Update 20180628 ###
-#### Phase 3 self-train####
+#### Phase 3 self-train ####
 - 禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端( https://drive.google.com/drive/u/3/folders/17yjI9OeAxZofIOi611rWhjrumgXv2UyF  )
 - 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune
 - 禮拜天中午十一點以前，每個model的每個fold要predict該fold的validation data跟全部的testing data，把10 fold 的validation data append在一起變成完整的3710筆fname,sotmax CSV。所以每種model會predict出11個csv (   )
 
-#### Phase 4 stacking####
-- 將各model的validation softmax csv當成input()，重新train一個NN(自己切testing跟validation)，predict他對應的人工verified label(可以改用sigmoid或是保持softmax)
-- 禮拜天晚上八點: 上傳該NN去predict全部testing data的結果，並填stacking_acc表單:
+#### Phase 4 stacking ####
+- 將各model的validation softmax csv當成input( https://drive.google.com/drive/u/3/folders/1JqWT4M1MSxQ0xdy2RlpdAAEBn1GQ8b_l )，重新train一個NN(自己切testing跟validation)，predict他對應的人工verified label(可以改用sigmoid或是保持softmax)
+- 禮拜天晚上八點: 上傳該NN去predict全部testing data的結果(fname,probability distribution)，並填stacking_acc表單: https://drive.google.com/drive/u/3/folders/1zDNHnUDjAodJLhkU6XBserlDP7nbzI8u
+
 - 禮拜天請千萬不要用我們小組的kaggle次數!! ~~除非小號有好結果在告訴我就好~~
  
 
