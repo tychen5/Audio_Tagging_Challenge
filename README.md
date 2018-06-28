@@ -12,6 +12,7 @@
 ### Update 20180628 ###
 #### Phase 3 self-train ####
 - 禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端( https://drive.google.com/drive/u/3/folders/17yjI9OeAxZofIOi611rWhjrumgXv2UyF  )
+- 有變好或持平的fold才要改填新的acc、換成新的model，如果co-train或self-train反而變爛，那就用舊的fold model就好了
 - 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune
 - 禮拜天中午十一點以前，每個model的每個fold要predict該fold的validation data跟全部的testing data，把10 fold 的validation data append在一起變成完整的3710筆fname,sotmax CSV。所以每種model會predict出11個csv (   )
 
