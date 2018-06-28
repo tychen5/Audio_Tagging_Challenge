@@ -11,7 +11,7 @@
 
 ### Update 20180628 ###
 #### Phase 3 self-train ####
-- 禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端: https://drive.google.com/drive/u/3/folders/1PNazIuFvk26HihaFqBVyVjz1jm6oa4f_
+- 禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端: https://drive.google.com/open?id=1PNazIuFvk26HihaFqBVyVjz1jm6oa4f_
 - 有變好或持平的fold才要改填新的acc、換成新的model，如果co-train或self-train反而變爛，那就用舊的fold model就好了
 - 可自行對model反覆多次co-train或self-train
 - 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune ()
