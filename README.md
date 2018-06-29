@@ -11,16 +11,16 @@
 
 ### Update 20180629 ###
 #### Phase 3 self-train ####
-- 禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端: https://drive.google.com/open?id=1PNazIuFvk26HihaFqBVyVjz1jm6oa4f_  (要自己複製網址不能直接超連結，github怪怪的@@")
+- ~~~禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端: https://drive.google.com/open?id=1PNazIuFvk26HihaFqBVyVjz1jm6oa4f_  (要自己複製網址不能直接超連結，github怪怪的@@")~~~
 - 不管有沒有進行cotrain或self train皆要進行predict unverified+testing data上傳(fname,softmax)
 - 有變好或持平的fold才要改填新的acc、換成新的model，如果co-train或self-train反而變爛，那就用舊的fold model就好了
 - 可自行對model反覆多次co-train或self-train
-- 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune ()，如果某fold持平或進步的話就更改acc表單並改用新的model
-- 禮拜六晚上九點前先做一次各fold predict全部9400 testing上傳到phase3，所以一個model會有10個csv (fname,softmax): https://drive.google.com/drive/u/3/folders/1QvdPf_atYdv7ge9xKqIqoZBrQGRds_x- (直接點會error就用複製的ㄅ)
-- 禮拜天中午十一點以前，每個model的每個fold要predict該fold的validation data跟全部的testing data，把10 fold 的validation data append在一起變成完整的3710筆fname,sotmax CSV。所以每種model會predict出11個csv ( https://drive.google.com/drive/u/3/folders/17yjI9OeAxZofIOi611rWhjrumgXv2UyF  )
+- 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune ，如果某fold持平或進步的話就更改acc表單並改用新的model
+- 禮拜六晚上九點前先做一次各fold predict全部9400 testing上傳到phase3，所以一個model會有10個csv (fname,softmax): https://drive.google.com/drive/u/3/folders/1QvdPf_atYdv7ge9xKqIqoZBrQGRds_x- (直接點會error就用複製的ㄅ)，然後可改一些參數繼續fine tune(co-train或再自己self-train皆可)
+- 禮拜天中午以前，每個model的每個fold要predict該fold的validation data跟全部的testing data，把10 fold 的validation data append在一起變成完整的3710筆fname,sotmax CSV。所以每種model會predict出11個csv ( https://drive.google.com/drive/u/3/folders/17yjI9OeAxZofIOi611rWhjrumgXv2UyF  )
 
 #### Phase 4 stacking ####
-- 將各model的validation softmax csv當成input( https://drive.google.com/drive/u/3/folders/1JqWT4M1MSxQ0xdy2RlpdAAEBn1GQ8b_l )，重新train一個NN(自己切testing跟validation)，predict他對應的人工verified label(可以改用sigmoid或是保持softmax)
+- 將各model的validation softmax csv當成input( https://drive.google.com/drive/u/3/folders/1JqWT4M1MSxQ0xdy2RlpdAAEBn1GQ8b_l )，重新train一個NN(自己切testing跟validation)(可以normalize成41維或是把十個model的softmax concate成410維)，predict他對應的人工verified label(可以改用hard sigmoid或是保持softmax)
 - 禮拜天晚上八點: 上傳該NN去predict全部testing data的結果(fname,probability distribution)，並填stacking_acc表單: https://drive.google.com/drive/u/3/folders/1zDNHnUDjAodJLhkU6XBserlDP7nbzI8u
 
 - 禮拜六日一請先不要用我們小組的kaggle次數!! ~~除非小號有好結果在告訴我就好~~
