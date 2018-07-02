@@ -16,7 +16,7 @@
 - 有變好或持平的fold才要改填新的acc、換成新的model，如果co-train或self-train反而變爛，那就用舊的fold model就好了
 - 可自行對model反覆多次co-train或self-train
 - 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune ，如果某fold持平或進步的話就更改acc表單並改用新的model
-- 禮拜六晚上九點前先做一次各fold predict全部9400 testing上傳到phase3，所以一個model會有10個csv (fname,softmax): https://drive.google.com/drive/u/3/folders/1QvdPf_atYdv7ge9xKqIqoZBrQGRds_x- (直接點會error就用複製的ㄅ)，然後可改一些參數繼續fine tune(co-train或再自己self-train皆可)
+- 禮拜六晚上九點前先做一次各fold predict全部9400 testing上傳到phase3，所以一個model會有10個csv (fname,softmax): https://drive.google.com/drive/u/3/folders/1QvdPf_atYdv7ge9xKqIqoZBrQGRds_x- (直接點會error就用複製的ㄅ)，然後可改一些參數繼續fine tune到隔天(co-train或再自己self-train皆可)
 - 禮拜天中午以前，每個model的每個fold要predict該fold的validation data跟全部的testing data，把10 fold 的validation data append在一起變成完整的3710筆fname,sotmax CSV。所以每種model會predict出11個csv ( https://drive.google.com/drive/u/3/folders/17yjI9OeAxZofIOi611rWhjrumgXv2UyF  )
 
 #### Phase 4 stacking ####
