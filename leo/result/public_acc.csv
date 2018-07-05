@@ -1,0 +1,5 @@
+csv_name,public_score,weight
+LGD_lp_stack_123.csv,0.924,3
+LGD_lpANDstack_123.csv,0.924,4
+public_voting_0919.csv,0.921,2
+final_ens_stage3.csv,0.921,1
