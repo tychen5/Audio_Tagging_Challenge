@@ -37,65 +37,38 @@ import resnet
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
 
 
-model_path = 'cnn2d_verified'
-refine_path = 'cnn2d_verified_refine'
+model_path = 'train_test_verified'
 
-models = [join(model_path, f) for f in listdir(model_path) if isfile(join(model_path, f))]
-
-if not os.path.exists(refine_path):
-    os.mkdir(refine_path)
+if not os.path.exists(model_path):
+    os.mkdir(model_path)
 
 
+# refine_path = 'cnn2d_verified_refine'
 
-X_train_semi = np.load('data/mfcc/X_train_ens_verified.npy')
-df = pd.read_csv('data/mfcc/Y_train_ens_verified.csv')
-df['trans'] = df['label_verified'].map(map_dict)
+# models = [join(model_path, f) for f in listdir(model_path) if isfile(join(model_path, f))]
+
+# if not os.path.exists(refine_path):
+#     os.mkdir(refine_path)
+
+df = pd.read_csv('data/train_label.csv') 
+df['trans'] = df['label'].map(map_dict)
 df['onehot'] = df['trans'].apply(lambda x: to_categorical(x,num_classes=41))
+Y =  df_manu['onehot'].tolist()
+Y = np.array(Y)
+Y = Y.reshape(-1 ,41)
 
-Y_train_semi =  df['onehot'].tolist()
-Y_train_semi = np.array(Y_train_semi)
-Y_train_semi = Y_train_semi.reshape(-1 ,41)
+X = np.load('data/mfcc/X_train.npy') 
 
+X , Y = shuffle(X, Y, random_state=5)
 
-# normalize X_train_semi
-mean = np.mean(X_train_semi, axis=0)
-std = np.std(X_train_semi, axis=0)
-X_train_semi = (X_train_semi - mean)/std
+split = X.shape[0] *(9/10)
+X_train , X_test = X[:split] , X[split:]
+Y_train , Y_test = Y[:split] , Y[split:]
 
-
-for i , m  in enumerate(models):
-    
-    # fold 1 - 10  , enumerate 0 - 9
-    i += 1
-    print(i)
-    
-    X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
-    Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 
-    X_test = np.load('data/ten_fold_data/X_valid_{}.npy'.format(i))
-    Y_test = np.load('data/ten_fold_data/Y_valid_{}.npy'.format(i))
-
-
-    #append semi data 
-    X_train = np.append(X_train,X_train_semi , axis=0)
-    Y_train = np.append(Y_train,Y_train_semi , axis=0)
-    
-    
-    X_train , Y_train = shuffle(X_train, Y_train, random_state=0) 
-
-    model = resnet.ResnetBuilder.build_resnet_18((1, 40, 345), 41)
-
-    checkpoint = ModelCheckpoint(join('test_semi_model' , 'best_semi_%d_{val_acc:.5f}.h5'%i), monitor='val_acc', verbose=1, save_best_only=True)
-    early = EarlyStopping(monitor="val_acc", mode="max", patience=100)
-
-    model.compile(loss='categorical_crossentropy',
-              optimizer='adam',
-              metrics=['accuracy'])
-
-    print("#"*50)
-    print("Fold: ", i)
-
-    history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=[checkpoint, early],
-                        batch_size=256, epochs=10000)
-
+print( X_train.shape)
     
 
+
+checkpoint = ModelCheckpoint(os.path.join(model_path,'best_%d_{val_acc:.5f}.h5'%i), monitor='val_acc', verbose=1, save_best_only=True)
+early = EarlyStopping(monitor="val_acc", mode="max", patience=40)
+callbacks_list = [checkpoint, early]
