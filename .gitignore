@@ -28,11 +28,9 @@ wheels/
 #Customed
 **/.ipynb_checkpoints/*
 **/logs/*
-leo/data/*
 leo/model/*
 leo/models/*.h5
 leo/feature/*
-leo/result/*
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -151,3 +149,51 @@ mike/old_model
 # ignore useless cache
 .*.un~
 
+./leo/model/mfcc6/LGD_fold3_resnet1-.h5
+./leo/model/mfcc6/fine_tune/LGD_fold3_self_resnet.h5
+./leo/model/mfcc6/fine_tune/LGD_fold8_self_resnet.h5
+./leo/model/mfcc6/LGD_fold0_self_resnet.h5
+./leo/model/mfcc6/LGD_fold2_self_resnet.h5
+./leo/model/mfcc6/LGD_fold8_co_resnet.h5
+./leo/model/mfcc6/LGD_fold1_self_resnet.h5
+./leo/model/mfcc6/LGD_fold7_self_resnet.h5
+./leo/model/mfcc6/LGD_semi_fold5_resnet3.h5
+./leo/model/mfcc6/LGD_fold4_self_resnet.h5
+./leo/model/mfcc6/LGD_fold9_self_resnet.h5
+./leo/model/mfcc6/LGD_fold6_self_resnet.h5
+./leo/model/stacking/LGD_fold_stacking_410_dense4.h5
+./leo/model/stacking/LGD_fold_stacking_410_dense2.h5
+./leo/model/stacking/LGD_fold_stacking_410_dense3.h5
+./leo/model/mfcc7/fine_tune/LGD_fold0_self_resnet.h5
+./leo/model/mfcc7/LGD_fold2_self_resnet.h5
+./leo/model/mfcc7/LGD_fold9_co_resnet.h5
+./leo/model/mfcc7/LGD_fold8_co_resnet.h5
+./leo/model/mfcc7/LGD_fold3_self_resnet.h5
+./leo/model/mfcc7/LGD_fold1_self_resnet.h5
+./leo/model/mfcc7/LGD_fold7_self_resnet.h5
+./leo/model/mfcc7/LGD_fold4_self_resnet.h5
+./leo/model/mfcc7/LGD_fold5_co_resnet.h5
+./leo/model/mfcc7/LGD_fold0_co_resnet.h5
+./leo/model/mfcc7/LGD_fold6_self_resnet.h5
+./leo/data/phase1/fbank/test/test_X.npy
+./leo/data/phase1/fbank/train3/train3_X.npy
+./leo/data/phase1/mfcc/test/test_X.npy
+./leo/data/phase1/mfcc/train3/train3_X.npy
+./leo/feature/X_train_verified_3710.npy
+./leo/feature/mfcc6/X_test.npy
+./leo/feature/mfcc6/X_train.npy
+./leo/feature/mfcc6/semi/Y_selftrain_ens_verified/X_co.npy
+./leo/feature/mfcc6/semi/mike_res18/X_co.npy
+./leo/feature/mfcc6/semi/jerry_mfcc3_resnet34_mixup_cotrain_Y/X_co.npy
+./leo/feature/mfcc6/semi/mike_mfcc1_resnet18_cotrain_Y/X_co.npy
+./leo/feature/mfcc6/X_unverified.npy
+./leo/feature/mfcc7/X_test.npy
+./leo/feature/mfcc7/X_train.npy
+./leo/feature/mfcc7/semi/mow_res18/X_co.npy
+./leo/feature/mfcc7/semi/Y_selftrain_ens_verified/X_co.npy
+./leo/feature/mfcc7/semi/mow_mfcc4_resnet152_cotrain_Y/X_co.npy
+./leo/feature/mfcc7/X_unverified.npy
+./leo/feature/X_train_unverified_5763.npy
+./leo/feature/raw/X_test.npy
+./leo/feature/raw/X_train.npy
+./leo/feature/raw/X_train_ens_verified.npy

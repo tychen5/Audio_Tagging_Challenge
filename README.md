@@ -5,14 +5,67 @@
 * 僅保留master branch，各自所做的事情放自己的資料夾~
 * 整理好的code與report放final繳交資料夾
 
-## Announcement Phase1 ##
+## Announcement Phase2 ##
 - 大家辛苦了~嘎U，記得保留model跟上傳code
+- 快結束了~~
+
+### Update 20180629 ###
+#### Phase 3 self-train ####
+- ~~~禮拜五晚上八點: 每個model的每個fold上傳unverified+testing(一萬五千多筆)的fname,softmax CSV到雲端: https://drive.google.com/open?id=1PNazIuFvk26HihaFqBVyVjz1jm6oa4f_  (要自己複製網址不能直接超連結，github怪怪的@@")~~~
+- 不管有沒有進行cotrain或self train皆要進行predict unverified+testing data上傳(fname,softmax)
+- 有變好或持平的fold才要改填新的acc、換成新的model，如果co-train或self-train反而變爛，那就用舊的fold model就好了
+- 可自行對model反覆多次co-train或self-train
+- 禮拜五晚上十二點前到雲端拿ensemble verified過後的fname,label csv進行self-train fine tune ，如果某fold持平或進步的話就更改acc表單並改用新的model
+- 禮拜六晚上九點前先做一次各fold predict全部9400 testing上傳到phase3，所以一個model會有10個csv (fname,softmax): https://drive.google.com/drive/u/3/folders/1QvdPf_atYdv7ge9xKqIqoZBrQGRds_x- (直接點會error就用複製的ㄅ)，然後可改一些參數繼續fine tune到隔天(co-train或再自己self-train皆可)
+- 禮拜天中午以前，每個model的每個fold要predict該fold的validation data跟全部的testing data，把10 fold 的validation data append在一起變成完整的3710筆fname,sotmax CSV。所以每種model會predict出11個csv ( https://drive.google.com/drive/u/3/folders/17yjI9OeAxZofIOi611rWhjrumgXv2UyF  )
+
+#### Phase 4 stacking ####
+- 將各model的validation softmax csv當成input( https://drive.google.com/drive/u/3/folders/1JqWT4M1MSxQ0xdy2RlpdAAEBn1GQ8b_l )，重新train一個NN(自己切testing跟validation)(可以normalize成41維或是把十個model的softmax concate成410維)，predict他對應的人工verified label(可以改用hard sigmoid或是保持softmax)
+- 禮拜天晚上八點: 上傳該NN去predict全部testing data的結果(fname,probability distribution)，並填stacking_acc表單: https://drive.google.com/drive/u/3/folders/1zDNHnUDjAodJLhkU6XBserlDP7nbzI8u
+
+- 禮拜六日一請先不要用我們小組的kaggle次數!! ~~除非小號有好結果在告訴我就好~~
+ 
+
+### Update: 20180625 ###
+#### Co-Train ####
+- 各model predict各fold的validation data，所以總共會有model數量*10個csv，每十個csv檔案合起來=全部的verified data( https://drive.google.com/drive/u/3/folders/1JqWT4M1MSxQ0xdy2RlpdAAEBn1GQ8b_l  )
+- 各model 的各fold要predict全部的unverified data跟testing data，所以總共會有model數量x20個csv，每個csv裡面有一萬四千多筆unverified data。接著將自己各model的10 fold進行ensemble：每個foldx該fold的validation acc然後加總，再除以10個validation acc的和，所以只會剩下一個ensemble csv(一樣五千多筆+九千四百筆)，求出每筆資料的argmax(也就是label)，以及armax的值(也就是信心指數)，求出信心指數的mean跟std作為threshold，如果超過threshold就記錄下來該fname以及argmax label是啥。所以最後會得到一個csv內容是:fname,label再上傳雲端( https://drive.google.com/drive/u/3/folders/1jzT4HLUEw9P4bG_sSJ6um43EO610ZJFf  )
+- ~~如同上述做法一樣predict全部9400筆testing data求出自己各model 10-fold的argmax值之mean、std作為threshold，超過mean+std的才記錄下fname跟label是啥，最後存成csv上傳雲端: https://drive.google.com/drive/u/3/folders/1kyDSBRWFJJMapi3q0fKqBFl_aOp8MMZc~~
+
+===以上deadline在禮拜三中午以前，每個人要上傳好自己MODEL們的ensemble semi csv===
+
+- mow拿mike上傳的fname、label對應回自己的unverified跟testing feature，fine tune Phase1存下來的10-fold model，原本各fold的validation data仍作為verified
+- 同理，mike拿mow的；jerry拿leo的；leo拿jerry的
+- 如果自己有兩個以上model的話，就隨便再多挑其他人的來做semi吧^^
+
+====================以上第一次co-train ===============
+
+- 6/28晚上七點教研館319開會: 討論semi supervised learning、Phase3、Phase4、戳public data set
+
+### Update: 20180621 ###
+- ResNet train起來!!!!!!! + co-train
+- mfcc表單: https://docs.google.com/spreadsheets/d/19FcCYr8R6C-6xOT73jZq7YX7abkGeCZhD2wvwF3HiWo/edit#gid=0
+- model reference: https://github.com/raghakot/keras-resnet
+- data augmentation ref: https://www.kaggle.com/daisukelab/mixup-cutout-or-random-erasing-to-augment
+- data augmentation repo: https://github.com/yu4u/mixup-generator
+- mow: mfcc表單
+- mike:  mfcc表單 
+- jerry:  mfcc表單
+- leo:  mfcc表單
+
+* 進行10 fold，先只train verified data
+* predict test data跟unverified data softmax的csv上傳至google drive並填寫valid_acc表單( https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR  ) ，再進行co-train 
+
+===================以上dead line 6/26晚上以前===============
+
+***
 
 ### Update: 20180616 ###
 - Mike: MFCC=>flatten=>DNN auto-encoder (CNN auto-encoder不用flatten)=>label-spreading to unverified data=>10-fold model (valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive(https://drive.google.com/drive/u/3/folders/16M4wQ4kbMwKOfK1XELI4C1_C14ghXnaR)
 
 
 * auto-encoder要拿全部的trainX(verified+unverified)跟testX來訓練
+* normalized也要拿全部的data (包括testX)
 
 - Jerry: verified Fbank=>10-fold model(valid_data: 1 fold of verified data)=>predict testing data and unverified data for mow on Google Drive
 - Leo: Fbank=>cnn autoencoder=>label-spreading=>predict testing data and unverified data for mow 

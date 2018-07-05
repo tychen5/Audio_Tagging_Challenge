@@ -44,3 +44,14 @@ ediction of test_X to use XGB voting clf
 - 將所有人的結果依據accuracy進行weighted-ensemble
 - 僅留下confidence accuracy超過mean+std的值 或是 confidence accuracy>mean且與未進行人工verfied label相同的data
 - 對原本10-fold進行fine-tuned
+
+## Resnet Training ##
+- 10-fold
+- 隨機選一種model:18、34、50、101、152
+- 各fold會隨機dropout並增加dense layer、batchsize也為隨機
+- 第一輪的augmentation參數較小，不進行normalize centarize
+- 第二輪semi的augmentation參數較大，自動降低lr進行finetune
+- opt僅能使用adam
+- 利用VGG16(residual FCN)+LSTM+GRU+Residual Dense 架構作為encoder
+- 訓練十種label spreading model，包含KNN與RBF，其餘參數隨機
+- 將十種model投票，完美共識者才拿進來於phase1來semi
