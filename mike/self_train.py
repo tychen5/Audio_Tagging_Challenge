@@ -1,58 +1,65 @@
-'''
-reference :
-https://www.kaggle.com/fizzbuzz/beginner-s-guide-to-audio-data
-'''
 import os
-from os import listdir
-from os.path import isfile, join
 import shutil
-
 import numpy as np
 import pickle as pk
 import pandas as pd
-
-
 from keras.utils import to_categorical ,Sequence
 from keras import losses, models, optimizers
+from keras.models import load_model
 from keras.models import Sequential
 from keras.activations import relu, softmax
-from keras.models import load_model
 from keras.callbacks import (EarlyStopping, LearningRateScheduler,
                              ModelCheckpoint, TensorBoard, ReduceLROnPlateau)
-from keras.layers import (Convolution1D, Dense, Dropout, GlobalAveragePooling1D,
-                          GlobalMaxPool1D, Input, MaxPool1D, concatenate)
-
-from keras.layers import Conv1D, Conv2D
-from keras.layers import (Convolution2D, GlobalAveragePooling2D, BatchNormalization, Flatten,
-                          GlobalMaxPool2D, MaxPool2D, concatenate, Activation , MaxPooling2D)
 from keras.layers import Activation, LeakyReLU
-from keras import backend as K
-
-from sklearn.model_selection import KFold
-from sklearn.utils import shuffle
-from random_eraser import get_random_eraser
 from keras.preprocessing.image import ImageDataGenerator
+from keras import backend as K
+from sklearn.model_selection import KFold
+from random_eraser import get_random_eraser
+from keras.optimizers import Adam
+from os.path import join
 import resnet
+from sklearn.utils import shuffle
 
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
 
-model_path = 'model_full_resnet18_gen'
-refine_path = 'model_full_resnet18_gen_refine'
+semi = pd.read_csv('data/cotrain/Y_selftrain_ens_verified.csv')
 
+semi_map = {}
 
-if not os.path.exists(refine_path):
-    os.mkdir(refine_path)
+semi_name = semi['fname'].values
+semi_label_verified = semi['label_verified'].values
 
+for idx ,d in enumerate( semi_name):
+    semi_map[d] = semi_label_verified[idx]
 
-X_train_semi = np.load('data/mfcc/X_train_ens_verified.npy')
-df = pd.read_csv('data/mfcc/Y_train_ens_verified.csv')
+unverified_df = pd.read_csv('data/train_label.csv')
+test_df = pd.read_csv('data/sample_submission.csv')
+
+unverified_df = unverified_df[unverified_df['fname'].isin(semi_name)]
+unverified_df = unverified_df.drop(columns=['manually_verified'])
+unverified_df['label_verified'] = unverified_df['fname'].map(semi_map)
+
+test_df = test_df[test_df['fname'].isin(semi_name)]
+test_df['label_verified'] = test_df['fname'].map(semi_map)
+
+unverified_idx = unverified_df.index.values
+test_idx = test_df.index.values
+
+df = pd.concat([unverified_df , test_df])
+df = df.drop(columns=['label'])
 df['trans'] = df['label_verified'].map(map_dict)
 df['onehot'] = df['trans'].apply(lambda x: to_categorical(x,num_classes=41))
 
-Y_train_semi =  df['onehot'].tolist()
-Y_train_semi = np.array(Y_train_semi)
-Y_train_semi = Y_train_semi.reshape(-1 ,41)
 
+
+X_unverified = np.load('data/mfcc/X_train.npy')[unverified_idx]
+X_test = np.load('data/X_test.npy')[test_idx]
+
+X_semi = np.append(X_unverified,X_test , axis=0)
+Y_semi = np.array(df['onehot'].tolist()).reshape(-1,41)
+
+print(X_semi.shape)
+print(Y_semi.shape)
 
  # data generator ====================================================================================
 class MixupGenerator():
@@ -113,62 +120,58 @@ class MixupGenerator():
 
         return X, y
 
-# mean , std = np.load('data/mean_std.npy')
 
-# for i , m  in enumerate(models):
+model_path = 'model_full_resnet18_gen_refine'
+refine_path = 'model_full_resnet18_gen_refine_co'
+
+all_x = np.concatenate( (np.load('data/mfcc/X_train.npy') , np.load('data/X_test.npy')))
+
+if not os.path.exists(refine_path):
+    os.mkdir(refine_path)
+
 for i in range(1,11):
-    
     X_train = np.load('data/ten_fold_data/X_train_{}.npy'.format(i)) 
     Y_train = np.load('data/ten_fold_data/Y_train_{}.npy'.format(i)) 
     X_test = np.load('data/ten_fold_data/X_valid_{}.npy'.format(i))
     Y_test = np.load('data/ten_fold_data/Y_valid_{}.npy'.format(i))
-
-    print('verified data:')
-    print(X_train.shape)
-    print(Y_train.shape)
-    print('semi data')
-    print(X_train_semi.shape)
-    print(Y_train_semi.shape)
     
+    X_train = np.append(X_train,X_semi , axis=0)
+    Y_train = np.append(Y_train,Y_semi , axis=0)
     
-    #append semi data 
-    X_train = np.append(X_train,X_train_semi , axis=0)
-    Y_train = np.append(Y_train,Y_train_semi , axis=0)
+    X_train , Y_train = shuffle(X_train, Y_train, random_state=5)
     
-    # shuffle new data
-    X_train , Y_train = shuffle(X_train, Y_train, random_state=0) 
-
-
-    print('after append semi data:')
     print(X_train.shape)
     print(Y_train.shape)
     print(X_test.shape)
     print(Y_test.shape)
-
-    model = load_model(join(model_path,'best_{}.h5'.format(i)))
-
-    checkpoint = ModelCheckpoint(join(refine_path , 'best_semi_%d_{val_acc:.5f}.h5'%i), monitor='val_acc', verbose=1, save_best_only=True)
-    early = EarlyStopping(monitor="val_acc", mode="max", patience=60)
-
-    print("#"*50)
-    print("Fold: ", i)
-
-   
+    
+    model = load_model(join(model_path,'semi_{}.h5'.format(i)))
+    
+    checkpoint = ModelCheckpoint(join(refine_path , 'semi_self_%d_{val_acc:.5f}.h5'%i), monitor='val_acc', verbose=1, save_best_only=True)
+    early = EarlyStopping(monitor="val_acc", mode="max", patience=30)
+    callbacks_list = [checkpoint, early]
     
     datagen = ImageDataGenerator(
         featurewise_center=True,  # set input mean to 0 over the dataset
         width_shift_range=0.2,
         height_shift_range=0.2,
         horizontal_flip=True,
-        preprocessing_function=get_random_eraser(v_l=np.min(X_train), v_h=np.max(X_train)) # Trainset's boundaries.
+        preprocessing_function=get_random_eraser(v_l=np.min(all_x), v_h=np.max(all_x)) # Trainset's boundaries.
     )
-
+    
     mygenerator = MixupGenerator(X_train, Y_train, alpha=1.0, batch_size=128, datagen=datagen)
-
+    
+    model.compile(loss='categorical_crossentropy',
+             optimizer=Adam(lr=0.0001),
+             metrics=['accuracy'])
+    # mixup
     history = model.fit_generator(mygenerator(),
                     steps_per_epoch= X_train.shape[0] // 128,
                     epochs=10000,
-                    validation_data=(X_test,Y_test), callbacks=[checkpoint, early])
+                    validation_data=(X_test,Y_test), callbacks=callbacks_list)
+    # normalize
+#     history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), callbacks=callbacks_list,
+#                         batch_size=32, epochs=10000)
 
     
-
+#     break

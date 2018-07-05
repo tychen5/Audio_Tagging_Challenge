@@ -80,9 +80,9 @@ Y = df_unmanu['onehot'].tolist()
 Y = np.array(Y)
 Y = Y.reshape(-1 ,41)
 
-mean = np.mean(X, axis=0)
-std = np.std(X, axis=0)
-X = (X - mean)/std
+# mean = np.mean(X, axis=0)
+# std = np.std(X, axis=0)
+# X = (X - mean)/std
 
 np.save( os.path.join(fold_path, 'X_unverified'), X)
 np.save( os.path.join(fold_path, 'Y_unverified'), Y)

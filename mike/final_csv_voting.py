@@ -7,6 +7,7 @@ import pandas as pd
 from os import listdir
 from os.path import isfile, join
 
+
 from keras.utils import to_categorical ,Sequence
 from keras import losses, models, optimizers
 from keras.activations import relu, softmax
@@ -19,51 +20,50 @@ from keras.layers import (Convolution1D, Dense, Dropout, GlobalAveragePooling1D,
 from keras.layers import (Convolution2D, GlobalAveragePooling2D, BatchNormalization, Flatten,
                           GlobalMaxPool2D, MaxPool2D, concatenate, Activation)
 
-from keras import backend as K                      
-
+from keras import backend as K       
 
 # calculate accuracy
 from sklearn.metrics import accuracy_score
 
+# processing ==================================
+# predict_acc.py
+# final_csv_voting
+# output file 
+# =============================================
 
-# load data 
 map_dict = pk.load(open('data/map.pkl' , 'rb'))
 reverse_dict = pk.load(open('data/map_reverse.pkl' , 'rb'))
 name = pd.read_csv('data/sample_submission.csv')
 X_name = name['fname'].tolist()
 
-# normalize
-X = np.load("data/X_test.npy")
-mean = np.mean(X, axis=0)
-std = np.std(X, axis=0)
-X = (X - mean)/std
 
-# ================================================
-
-# load models
-mypath = 'model_full_resnet18_gen'
-# predict 
-csv_folder = 'model_full_resnet18_gen_csv'
-
-# ================================================
+folders  = ['resnet_semi_test_csv' , 'cnn2d_semi_test_csv']
 
 
-if not os.path.exists(csv_folder):
-    os.mkdir(csv_folder)
+result = np.zeros((9400,41))
+
+for f in folders:
+    for path in listdir(f) :
+        
+        df = pd.read_csv(join(f,path))
+        del df['fname']
+        v = df.values
+        result += v
+        
 
 
-for i  in range(1,11):
+output = []
+reverse_dict = pk.load(open('data/map_reverse.pkl' , 'rb'))
 
-    print('round : {}'.format(i))
+for i , d in enumerate( result):
 
-    # predict
-    model = load_model(join(mypath,'best_{}.h5'.format(i))) 
-    result = model.predict(X , verbose = True , batch_size = 256)
-    
+    top3 = d.argsort()[-3:][::-1]
+    result = [reverse_dict[x] for x in top3]
+    s = ' '.join(result)
 
-    df = pd.DataFrame(result)
-    df.insert(0,'fname' , X_name)
-    df.to_csv('{}/mike_resnet_semi_test_{}.csv'.format(csv_folder,i), index=False)
+    output.append(s)
 
-    
-
+df = pd.DataFrame(output , columns = ['label'])
+df.insert(0,'fname' , X_name)
+df.to_csv('ans_csv_voting.csv', index=False)
+print(df.head(3))

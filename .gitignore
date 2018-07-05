@@ -130,6 +130,20 @@ mike/restnet_semi_test_csv
 mike/model_full_resnet
 mike/test_semi_model
 mike/model_full_cnn2d
+mike/resnet_verified_refine
+mike/resnet_semi_test_csv
+mike/resnet_verified_refine_nonNormalize
+mike/resnet_verified_refine_nonNormalize_semi2
+mike/model_full_resnet152/
+mike/model_full_resnet18_gen/	
+mike/model_full_resnet18_gen_refine/
+mike/model_full_resnet18_gen_refine_co/
+mike/model_full_resnet2/
+mike/model_full_resnet2_refine/
+mike/model_full_resnet2_refine_co/
+mike/model_full_resnet_refine/
+mike/model_full_resnet18_gen/ 
+mike/old_model
 =======
 
 # ignore useless cache
